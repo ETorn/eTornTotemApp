@@ -1,12 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { Config } from '../config/config'
+import { Config } from '../interfaces/config.interface';
 import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class SuperService {
+export class SuperService{
 
+  config: Config;
+
+  constructor(private _http: Http) { }
+
+  /*ngOnInit() {
+    this.getConfig()
+        .subscribe(x => this.config = x);
+  }*/
+
+  getConfig() {
+    const url = 'src/app/config/config.json';
+    return this._http.get(url)
+          .map(res => res.json());
+  }
   /*superId: string;
   config: Config;
 

@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 @Injectable()
  export class Config {
 
-    public _config: any
+   /* public _config: any
     public superId: string
     constructor(private http: Http) {
         this._config = {};
@@ -28,7 +28,7 @@ import 'rxjs/Rx';
 
     getSuperId() {
         return this._config.totem.superId;
-    }
+    }*/
 
     /*load () {
         console.log("load cridat");
