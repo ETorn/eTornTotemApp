@@ -17,6 +17,7 @@ export class ConfigComponent  implements OnInit, OnChanges {
   data: Config;
 
   super: any;
+  superName: string;
 
   idsStore: [string];
 
@@ -43,7 +44,7 @@ export class ConfigComponent  implements OnInit, OnChanges {
         console.log("appComp");
         console.log(res);
         this.idsStore = res.stores;
-
+        this.superName = res.address;
         console.log("ArrayID",this.idsStore)
       })
   }

@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { ConfigComponent } from './config/config.component';
 import { StoresComponent } from './stores/stores.component';
 
+import { MaterialModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,8 @@ import { StoresComponent } from './stores/stores.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MaterialModule
   ],
   providers: [DataService, SuperService, ConfigService, StoreService],
   bootstrap: [AppComponent]
