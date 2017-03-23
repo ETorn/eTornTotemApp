@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { ConfigService } from './config.service';
 import { Config } from '../interfaces/config.interface';
 import 'rxjs/add/operator/map';
 
@@ -9,15 +10,35 @@ export class SuperService{
 
   config: Config;
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http, private configService: ConfigService ) { 
+    /*this.configService.getConfig().subscribe(config => {
+      this.config = config;
+    })*/
+    /*this.getConfig().subscribe(config => {
+      this.config = config;
+      console.log("config Arrives")
+      console.log(config)
+    })*/
+    
+  }
+
+  getConfig() {
+     const url = 'src/app/config/config.json';
+      return this._http.get(url)
+            .map(res => res.json());
+  }
 
   /*ngOnInit() {
     this.getConfig()
         .subscribe(x => this.config = x);
   }*/
 
-  getConfig() {
-    const url = 'src/app/config/config.json';
+  getSuperById(config: Config) {
+    console.log("SuperByidDD");
+    console.log(config);
+    //console.log(this.config);
+    const url = config.node.address + 
+    '/supers/' + config.totem.superId;
     return this._http.get(url)
           .map(res => res.json());
   }

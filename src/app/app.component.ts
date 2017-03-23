@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from './interfaces/config.interface';
 import { SuperService } from './services/super.service';
+import { ConfigService } from './services/config.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SuperService]
+  providers: [SuperService, ConfigService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
   title = 'app works!';
   config: Config;
-  constructor(private superService: SuperService) {
+
+ 
+
+  constructor(private configService: ConfigService) {
     //var id = _config.get('superId');
     
     //_config.loadSuperId();
@@ -18,13 +22,24 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-      setInterval(() => {this.initConfig();}, 1000);
+    console.log("configInit")
+    this.configService.getConfig().subscribe(
+      res => this.config = res
+    );
+    //this.initConfig();
+      //setInterval(() => {this.initConfig();}, 1000);
   }
 
-  initConfig() {
-    this.superService.getConfig().subscribe(res => {
-      this.config = res;
-      console.log(this.config);
+  
+
+  /*initConfig() {
+    this.superService.getSuperById().subscribe(res => {
+      if (res != null)
+        this.info = res;
+      console.log("res");
+      console.log(res);
     })
-  }
+  }*/
+
+  
 }
