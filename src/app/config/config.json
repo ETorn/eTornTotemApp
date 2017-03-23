@@ -1,8 +1,8 @@
 {
     "totem": {
-        "superId": "58d3bb1975b6f418f8fd1232"
+        "superId": "58d3d8640e534121801a435b"
     },
     "node": {
-        "address": "http://192.168.204.227:8080"
+        "address": "http://192.168.1.128:8080"
     }
 }

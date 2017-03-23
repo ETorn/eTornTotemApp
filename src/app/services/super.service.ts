@@ -8,8 +8,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SuperService{
 
-  config: Config;
-
   constructor(private _http: Http, private configService: ConfigService ) { 
     /*this.configService.getConfig().subscribe(config => {
       this.config = config;
@@ -20,12 +18,6 @@ export class SuperService{
       console.log(config)
     })*/
     
-  }
-
-  getConfig() {
-     const url = 'src/app/config/config.json';
-      return this._http.get(url)
-            .map(res => res.json());
   }
 
   /*ngOnInit() {

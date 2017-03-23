@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Config } from '../interfaces/config.interface';
 import { ConfigService } from '../services/config.service';
 import { SuperService } from '../services/super.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-config',
@@ -17,7 +18,9 @@ export class ConfigComponent  implements OnInit, OnChanges {
 
   super: any;
 
-  constructor(private superService: SuperService) { }
+  idsStore: [string];
+
+  constructor(private superService: SuperService, private dataService: DataService) { }
 
   ngOnInit() {
     
@@ -25,7 +28,8 @@ export class ConfigComponent  implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
-      console.log("ngChanges")
+      this.dataService.setData(this.data); // Seteja el servei Global Data
+      console.log("ConfigChange")
       console.log(this.data);
       this.super = this.getSuperById(this.data);
     }
@@ -38,6 +42,9 @@ export class ConfigComponent  implements OnInit, OnChanges {
       this.superService.getSuperById(data).subscribe(res => {
         console.log("appComp");
         console.log(res);
+        this.idsStore = res.stores;
+
+        console.log("ArrayID",this.idsStore)
       })
   }
 }
