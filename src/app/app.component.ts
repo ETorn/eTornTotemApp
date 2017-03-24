@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from './interfaces/config.interface';
-import { SuperService } from './services/super.service';
-import { ConfigService } from './services/config.service';
+import { SuperService } from './services/super/super.service';
+import { ConfigService } from './services/config/config.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Config } from '../interfaces/config.interface';
+import { Config } from '../../interfaces/config.interface';
 @Injectable()
 export class DataService {
   private data: Config;

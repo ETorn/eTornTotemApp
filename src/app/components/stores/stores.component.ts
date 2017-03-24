@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { StoreService } from '../services/store.service';
+import { StoreService } from '../../services/store/store.service';
 @Component({
   selector: 'app-stores',
   templateUrl: './stores.component.html',
@@ -32,7 +32,7 @@ export class StoresComponent implements OnInit {
     }
   }
 
-  getStoreById(storesId: string): any { //Canviar per retornar array de stores
+  getStoreById(storesId: string): any {
     console.log("getStores")
     console.log(storesId)
       if (!storesId) return;

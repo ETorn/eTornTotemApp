@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Config } from '../interfaces/config.interface';
-import { DataService } from '../services/data.service';
+import { Config } from '../../interfaces/config.interface';
+import { DataService } from '../data/data.service';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()

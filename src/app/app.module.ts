@@ -3,22 +3,26 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { DataService } from './services/data.service';
-import { SuperService } from './services/super.service';
-import { ConfigService } from './services/config.service';
-import { StoreService } from './services/store.service';
+import { DataService } from './services/data/data.service';
+import { SuperService } from './services/super/super.service';
+import { ConfigService } from './services/config/config.service';
+import { StoreService } from './services/store/store.service';
+import { TotemService } from './services/totem/totem.service';
 
 import { AppComponent } from './app.component';
-import { ConfigComponent } from './config/config.component';
-import { StoresComponent } from './stores/stores.component';
+import { ConfigComponent } from './components/config/config.component';
+import { StoresComponent } from './components/stores/stores.component';
+import { TotemComponent } from './components/totem/totem.component';
 
 import { MaterialModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfigComponent,
-    StoresComponent
+    StoresComponent,
+    TotemComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,7 @@ import { MaterialModule } from '@angular/material';
     HttpModule,
     MaterialModule
   ],
-  providers: [DataService, SuperService, ConfigService, StoreService],
+  providers: [DataService, SuperService, ConfigService, StoreService, TotemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
