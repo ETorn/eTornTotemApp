@@ -30,3 +30,13 @@
     background: #e91e63;
     color: white;
 }
+
+.usersTurn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    
+    
+    background: #e91e63;
+    color: white;
+}

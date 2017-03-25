@@ -8,7 +8,7 @@ import { SuperService } from './services/super/super.service';
 import { ConfigService } from './services/config/config.service';
 import { StoreService } from './services/store/store.service';
 import { TotemService } from './services/totem/totem.service';
-//import { MqttService } from './services/mqtt/mqtt.service';
+import { MQTTService } from './services/mqtt/mqtt.service';
 
 import { AppComponent } from './app.component';
 
@@ -25,7 +25,7 @@ import { MaterialModule } from '@angular/material';
     HttpModule,
     MaterialModule
   ],
-  providers: [DataService, SuperService, ConfigService, StoreService, TotemService],
+  providers: [DataService, SuperService, ConfigService, StoreService, TotemService, MQTTService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

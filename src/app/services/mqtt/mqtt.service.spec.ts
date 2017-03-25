@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MqttService } from './mqtt.service';
+import { MQTTService } from './mqtt.service';
 
 describe('MqttService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MqttService]
+      providers: [MQTTService]
     });
   });
 
-  it('should ...', inject([MqttService], (service: MqttService) => {
+  it('should ...', inject([MQTTService], (service: MQTTService) => {
     expect(service).toBeTruthy();
   }));
 });
