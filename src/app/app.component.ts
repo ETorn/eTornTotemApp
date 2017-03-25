@@ -46,7 +46,7 @@ export class AppComponent{
       config => {
         this.config = config;
         this.dataService.setData(config);
-        this.totemService.getSuperId(config).subscribe(
+        this.totemService.getSuperId(config).subscribe( // Comprovar responses if (!null)¿?
           response => {
             this.superService.getSuperById(response.superId).subscribe(
               superMrkt => {

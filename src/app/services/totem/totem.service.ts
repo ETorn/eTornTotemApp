@@ -13,7 +13,7 @@ export class TotemService {
     console.log("getSuperId");
     console.log(config);
     const url = config.node.address + 
-    '/totems/' + config.totem.identifier;
+    '/totems/identifier/' + config.totem.identifier;
     return this._http.get(url)
           .map(res => res.json());
   }
