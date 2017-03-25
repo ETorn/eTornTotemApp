@@ -8,21 +8,16 @@ import { SuperService } from './services/super/super.service';
 import { ConfigService } from './services/config/config.service';
 import { StoreService } from './services/store/store.service';
 import { TotemService } from './services/totem/totem.service';
+//import { MqttService } from './services/mqtt/mqtt.service';
 
 import { AppComponent } from './app.component';
-import { ConfigComponent } from './components/config/config.component';
-import { StoresComponent } from './components/stores/stores.component';
-import { TotemComponent } from './components/totem/totem.component';
 
 import { MaterialModule } from '@angular/material';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ConfigComponent,
-    StoresComponent,
-    TotemComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
