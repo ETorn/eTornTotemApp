@@ -31,7 +31,7 @@ export class AppComponent{
 
   showStoreInfo = false;
 
-  storeId: string; //storeId que es passa al component store-info al fer click en una parada
+  store: any; //storeId que es passa al component store-info al fer click en una parada
 
  // Stream of messages
   public messages: Observable<Packet>;
@@ -45,12 +45,16 @@ export class AppComponent{
 
   constructor(private dataService: DataService, private configService: ConfigService, private totemService: TotemService,
   private superService: SuperService, private storeService: StoreService, private _mqService: MQTTService) {
+    this.store = {};
     this.stores = [{}];
     this.loaded = false;
   }
 
   storeInfoMood(event) {
     this.showStoreInfo = event;
+    this.store.name = "Carniceria";
+    this.store.storeTurn = "1";
+    this.store.usersTurn = "1";
     //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
 		//this.name = event;
 		console.log(event);

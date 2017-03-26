@@ -10,7 +10,7 @@ export class StoreInfoComponent implements OnInit {
   showStoreInfo: boolean;
 
   @Input()
-  storeId: string;
+  store: any;
 
   @Output()
   change: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -18,6 +18,7 @@ export class StoreInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.store)
   }
 
   
