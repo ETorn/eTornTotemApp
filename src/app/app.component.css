@@ -22,21 +22,47 @@
     position: absolute;
 }
 
+.textStoreTurn {
+    position: absolute;
+    top: 35px;
+    left: -4px;
+    color: white;
+}
+
+.textUsersTurn {
+    position: absolute;
+    top: 35px;
+    left: -22px;
+    color: white;
+}
 .storeTurn {
     position: absolute;
     right: 0px;
+    margin-top: 78px;
+    margin-right: 112px;
     
-    
-    background: #e91e63;
-    color: white;
 }
 
 .usersTurn {
     position: absolute;
     bottom: 0px;
     right: 0px;
+    margin-right: 206px;
+    margin-bottom: 86px;
     
     
+}
+
+.superName {
+    color: #3F51B5;
+    margin-left: 2%;
+}
+
+.usersTurn .mdl-chip {
+
+}
+
+.mdl-chip {
     background: #e91e63;
     color: white;
 }

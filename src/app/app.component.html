@@ -1,5 +1,5 @@
 <div>
-  <h1> {{superName}} </h1>
+  <h1 class="superName"> {{superName}} </h1>
 </div>
 <div class="container" *ngFor="let store of stores; let i = index">
   <div flex class="stores-card mdl-card mdl-shadow--2dp" *ngIf="i!=0">
@@ -7,11 +7,19 @@
         <span class="storeName">{{store.name}}</span>
       </a>
       <div class="storeTurn">
-        {{store.storeTurn}}
+        <span class="textStoreTurn">Torn Actual</span>
+        <span class="mdl-chip">
+          <span class="mdl-chip__text">{{store.storeTurn}}</span>
+        </span>
       </div>
 
       <div class="usersTurn">
-        {{store.usersTurn}}
+        <span class="textUsersTurn">Torn Disponible</span>
+        <span class="mdl-chip">
+          <span class="mdl-chip__text">{{store.usersTurn}}</span>
+        </span>
       </div>
+
+      
   </div>
 </div>
