@@ -6,6 +6,10 @@ import { TotemService } from './services/totem/totem.service';
 import { StoreService } from './services/store/store.service';
 import { ConfigService } from './services/config/config.service';
 
+import { StoreInfoComponent } from './components/store-info/store-info.component';
+
+import { customTransition } from './animations/transition.animation';
+
 import { Observable } from 'rxjs/Observable';
 
 import { Packet } from 'mqtt';
@@ -14,7 +18,8 @@ import { MQTTService } from './services/mqtt';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [customTransition()]
 })
 export class AppComponent{
   config: Config;
@@ -23,6 +28,10 @@ export class AppComponent{
  
   storesID: string[];
   superName: string;
+
+  showStoreInfo = false;
+
+  storeId: string; //storeId que es passa al component store-info al fer click en una parada
 
  // Stream of messages
   public messages: Observable<Packet>;
@@ -38,6 +47,13 @@ export class AppComponent{
   private superService: SuperService, private storeService: StoreService, private _mqService: MQTTService) {
     this.stores = [{}];
     this.loaded = false;
+  }
+
+  storeInfoMood(event) {
+    this.showStoreInfo = event;
+    //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
+		//this.name = event;
+		console.log(event);
   }
 
   ngOnInit() {

@@ -13,11 +13,13 @@ import { MQTTService } from './services/mqtt/mqtt.service';
 import { AppComponent } from './app.component';
 
 import { MaterialModule } from '@angular/material';
+import { StoreInfoComponent } from './components/store-info/store-info.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StoreInfoComponent
   ],
   imports: [
     BrowserModule,
