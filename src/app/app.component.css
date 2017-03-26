@@ -37,20 +37,28 @@
 }
 .storeTurn {
     position: absolute;
-    right: 0px;
-    margin-top: 78px;
-    margin-right: 112px;
-    
+    top: 78px;
+    right: 27%;
 }
 
 .usersTurn {
     position: absolute;
     bottom: 0px;
-    right: 0px;
-    margin-right: 206px;
-    margin-bottom: 86px;
+    right: 32%;
+    bottom: 86px;    
     
-    
+}
+
+.aproxTime {
+    position: absolute;
+    top: 78px;
+    right: 18%;
+}
+
+.textAproxTime {
+    position: absolute;
+    top: 35px;
+    color: white;
 }
 
 .superName {

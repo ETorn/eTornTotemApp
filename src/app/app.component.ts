@@ -55,6 +55,7 @@ export class AppComponent{
     this.store.name = "Carniceria";
     this.store.storeTurn = "1";
     this.store.usersTurn = "1";
+    this.store.aproxTime = "3 minuts";
     //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
 		//this.name = event;
 		console.log(event);
@@ -78,6 +79,7 @@ export class AppComponent{
                   this.storeService.getStoresById(this.storesID[i]).subscribe(
                     store => {
                       console.log("store", store);
+                      store.aproxTime = "3 minuts"; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor
                       this.stores.push(store);
                       this._mqService.configure(this.config);
                       this._mqService.try_connect()
