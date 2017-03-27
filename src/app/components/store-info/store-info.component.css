@@ -21,34 +21,35 @@
     text-align: center;
 }
 
-.name-card-mdl-card__supporting-text{
+.name-container{
     margin-top: -7%;
-    color: white;
 }
 .name {
     font-weight: bold;
     font-size: 250%;
 }
 
-.disponible-card-mdl-card__supporting-text {
-    margin-top: 23%;
-    color: white;
-    position: relative;
-    left: 20%;
-}
-
-.actual-card-mdl-card__supporting-text {
-    color: white;
-    margin-top: 3%;
-    left: 18%;
+.disponible-container {
+    margin-top: 14%;
     position: relative;
 }
 
-.time-card-mdl-card__supporting-text {
-    color: white;
+.actual-container {
     margin-top: 3%;
     position: relative;
-    left: 24.5%;
+}
+
+.time-container {
+    margin-top: 3%;
+    position: relative;
+}
+
+.confirmation-container {
+    margin-top: 6%;
+}
+
+p {
+    color: white;
 }
 
 .turn-mdl-button {
