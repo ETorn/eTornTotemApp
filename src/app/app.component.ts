@@ -31,7 +31,7 @@ export class AppComponent{
 
   showStoreInfo = false;
 
-  store: any; //storeId que es passa al component store-info al fer click en una parada
+  store: any[]; //storeId que es passa al component store-info al fer click en una parada
 
  // Stream of messages
   public messages: Observable<Packet>;
@@ -41,21 +41,26 @@ export class AppComponent{
   // Array of historic message (bodies)
   public mq: Array<string> = [];
 
-  private loaded: boolean;
+  filteredStores : any[];
+  filteredStoreNames : string[];
 
   constructor(private dataService: DataService, private configService: ConfigService, private totemService: TotemService,
   private superService: SuperService, private storeService: StoreService, private _mqService: MQTTService) {
-    this.store = {};
-    this.stores = [{}];
-    this.loaded = false;
+    this.store = [];
+    this.stores = [];
+  }
+
+  capitalizeFirstLetter(string) {
+      let newString = string.toLowerCase();
+      return newString.charAt(0).toUpperCase() + newString.slice(1);
   }
 
   storeInfoMood(event) {
+    let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
+    this.store = this.stores.filter(store => store.name === storeClickedName)[0];
+    console.log("storeToComponent", this.store);
     this.showStoreInfo = event;
-    this.store.name = "Carniceria";
-    this.store.storeTurn = "1";
-    this.store.usersTurn = "1";
-    this.store.aproxTime = "3 minuts";
+    this.store[0].aproxTime = "3 minuts";
     //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
 		//this.name = event;
 		console.log(event);

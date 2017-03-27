@@ -108,7 +108,7 @@ export class MQTTService implements TransportService {
     const url = this.config.node.address;
 
     // Create the client and listen for its connection
-    this.client = mqtt.connect("ws://192.168.1.128:1884");
+    this.client = mqtt.connect(this.config.node.mqttAddress);
 
     this.client.addListener('connect', this.on_connect);
     this.client.addListener('reconnect', this.on_reconnect);
