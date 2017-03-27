@@ -1,8 +1,25 @@
 <div class="store-card mdl-card mdl-shadow--2dp">
-    <div class="innerStoreInfo">
-        <p> Nom: {{store.name}} </p>
-        <p> Actual: {{store.storeTurn}} </p>
-        <p> Disponible: {{store.usersTurn}} </p>
-        <p> Temps aproximat: {{store.aproxTime}} </p>
+    <div class="innerStore">
+        <div class="innerStoreInfo">
+            <div class="name-card-mdl-card__supporting-text">
+                <p class="name" >{{store.name}} </p>
+            </div>
+
+            <div class="disponible-card-mdl-card__supporting-text">
+                <p class="disponible" > Torn Disponible: {{store.usersTurn}} </p>
+            </div>
+
+            <div class="actual-card-mdl-card__supporting-text">
+                <p class="actual" > Torn Actual: {{store.storeTurn}} </p>
+            </div>
+
+            <div class="time-card-mdl-card__supporting-text">
+                <p class="time" > Temps aproximat: {{store.aproxTime}} </p>
+            </div>
+
+            <button class="turn-mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">turned_in</i>
+            </button>
+        </div>
     </div>
 </div>

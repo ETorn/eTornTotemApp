@@ -8,8 +8,6 @@ import { ConfigService } from './services/config/config.service';
 
 import { StoreInfoComponent } from './components/store-info/store-info.component';
 
-import { customTransition } from './animations/transition.animation';
-
 import { Observable } from 'rxjs/Observable';
 
 import { Packet } from 'mqtt';
@@ -18,8 +16,7 @@ import { MQTTService } from './services/mqtt';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  animations: [customTransition()]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent{
   config: Config;
