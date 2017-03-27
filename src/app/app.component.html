@@ -3,7 +3,7 @@
 </div>
 <div class="container" *ngFor="let store of stores; let i = index">
   <div flex class="stores-card mdl-card mdl-shadow--2dp">
-      <a layout-align="center" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="storeInfoMood($event)">
+      <a layout-align="center" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="storeInfoOnClick($event)">
         <span class="storeName">{{store.name}}</span>
       </a>
       <div class="storeTurn">
@@ -28,4 +28,4 @@
       </div>
   </div>
 </div>
-<app-store-info (change)="storeInfoMood($event)" *ngIf="showStoreInfo" [store]="store"></app-store-info>
+<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo" [store]="store"></app-store-info>

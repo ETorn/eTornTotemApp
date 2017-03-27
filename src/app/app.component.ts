@@ -52,11 +52,15 @@ export class AppComponent{
       return newString.charAt(0).toUpperCase() + newString.slice(1);
   }
 
-  storeInfoMood(event) {
+  storeMood (event) {
+    this.showStoreInfo = event;
+  }
+
+  storeInfoOnClick(event) {
+    this.showStoreInfo = true;
     let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
     this.store = this.stores.filter(store => store.name === storeClickedName)[0];
     console.log("storeToComponent", this.store);
-    this.showStoreInfo = event;
     this.store[0].aproxTime = "3 minuts";
     //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
 		//this.name = event;

@@ -13,7 +13,7 @@ export class StoreInfoComponent implements OnInit {
   store: any;
 
   @Output()
-  change: EventEmitter<boolean> = new EventEmitter<boolean>();
+  change = new EventEmitter();
 
   constructor() { }
 
