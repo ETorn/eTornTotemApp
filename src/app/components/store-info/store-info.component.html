@@ -1,33 +1,43 @@
 <div class="backgroundStore">
     <div class="store-card mdl-card mdl-shadow--2dp">
-        <div class="innerStoreInfo">
-            <div class="name-container">
-                <p class="name" >{{store.name}} </p>
-            </div>
+        <div class="container">            
+            <div class="innerStoreInfo">
+                <div class="row">
+                    <div class="name-container">
+                        <p class="name" >{{store.name}}</p>
+                    </div>
+                </div>
 
-            <div class="disponible-container">
-                <p class="disponible" > Torn Disponible: {{store.usersTurn}} </p>
-            </div>
+                <div class="row-2">
+                    <div class="queue-container">
+                        <p class="queue" > Tens <span class="accent">{{store.queue}}</span> persones davant teu</p>
+                    </div>
+                </div>
 
-            <div class="actual-container">
-                <p class="actual" > Torn Actual: {{store.storeTurn}} </p>
-            </div>
+                <div class="row-3">
+                    <div class="time-container">
+                        <p class="time" > Temps aproximat: <span class="accent">{{store.aproxTime}}</span> </p>
+                    </div>
+                </div>
 
-            <div class="time-container">
-                <p class="time" > Temps aproximat: {{store.aproxTime}} </p>
-            </div>
+                <div class="row-4">
+                    <div class="confirmation-container">
+                        <p class="confirmation" > Vol continuar demanant torn? </p>
+                    </div>
+                </div>
 
-            <div class="confirmation-container">
-                <p class="confirmation" > Vol continuar demanant torn? </p>
+                <div class="row-5">
+                    <div class="col-sm-6">
+                        <button class="mdl-button mdl-js-button mdl-button--accent" (click)="toggleStoreInfo($event)"> No </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="mdl-button mdl-js-button mdl-button--accent"> Si </button>
+                    </div>
+                </div>
+                <!--<button class="turn-mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                    <i class="material-icons">turned_in</i>
+                </button>-->
             </div>
-
-            <div class="response-container">
-                <button class="mdl-button mdl-js-button mdl-button--accent" (click)="toggleStoreInfo($event)"> No </button>
-                <button class="mdl-button mdl-js-button mdl-button--accent"> Si </button>
-            </div>
-            <!--<button class="turn-mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                <i class="material-icons">turned_in</i>
-            </button>-->
         </div>
     </div>
 </div>

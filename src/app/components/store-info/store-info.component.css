@@ -9,39 +9,41 @@
 
 .store-card.mdl-card {
     background-color:  rgba(63, 81, 181, 1);
-    width: 35%;
-    height: 40%;
-    margin-left: 31%;
-    margin-top: 13%;
-    position: relative;
+    top: 22%;
+    margin: auto;
 }
 .innerStoreInfo {
-    top: 25%;
-    position:relative;
     text-align: center;
 }
 
+.queue {
+    font-size: 130%;
+}
+
+.time {
+    font-size: 130%;
+}
+
+.accent {
+    color: #e91e63;
+}
+
 .name-container{
-    margin-top: -7%;
 }
 .name {
     font-weight: bold;
-    font-size: 250%;
 }
 
 .disponible-container {
     margin-top: 8%;
-    position: relative;
 }
 
 .actual-container {
     margin-top: 3%;
-    position: relative;
 }
 
 .time-container {
     margin-top: 3%;
-    position: relative;
 }
 
 .confirmation-container {
@@ -53,8 +55,12 @@ p {
 }
 
 .turn-mdl-button {
-    position: relative;
     left: 45%;
+}
+
+.row {
+    top: 12px;
+    position: relative;
 }
 
 

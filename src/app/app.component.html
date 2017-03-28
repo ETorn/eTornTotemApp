@@ -1,30 +1,36 @@
 <div>
-  <h1 class="superName"> {{superName}} </h1>
+  <img src="src/assets/img/caprabo.png">
 </div>
-<div class="container" *ngFor="let store of stores; let i = index">
-  <div flex class="stores-card mdl-card mdl-shadow--2dp">
-      <a layout-align="center" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="storeInfoOnClick($event)">
-        <span class="storeName">{{store.name}}</span>
-      </a>
-      <div class="storeTurn">
-        <span class="textStoreTurn">Torn Actual</span>
-        <span class="mdl-chip">
-          <span class="mdl-chip__text">{{store.storeTurn}}</span>
-        </span>
-      </div>
-
-      <div class="usersTurn">
-        <span class="textUsersTurn">Torn Disponible</span>
-        <span class="mdl-chip">
-          <span class="mdl-chip__text">{{store.usersTurn}}</span>
-        </span>
-      </div>
-
-      <div class="aproxTime">
-        <span class="textAproxTime">Temps aproximat</span>
-        <span class="mdl-chip">
-          <span class="mdl-chip__text">{{store.aproxTime}}</span>
-        </span>
+<div class="container">
+  <div class="row" *ngFor="let store of stores; let i = index">
+    <a layout-align="center" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="storeInfoOnClick($event)">
+      <span class="storeName">{{store.name}}</span>
+    </a>
+      <div class="row-2">
+        <div class="col-sm-4">
+          <div class="storeTurn">
+            <span class="textStoreTurn">Torn Actual</span>
+            <span class="mdl-chip">
+              <span class="mdl-chip__text">{{store.storeTurn}}</span>
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="usersTurn">
+            <span class="textUsersTurn">Torn Disponible</span>
+            <span class="mdl-chip">
+              <span class="mdl-chip__text">{{store.usersTurn}}</span>
+            </span>
+          </div>
+        </div>
+          <div class="col-sm-4">
+            <div class="aproxTime">
+              <span class="textAproxTime">Temps</span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">{{store.aproxTime}}</span>
+              </span>
+          </div>
+        </div>
       </div>
   </div>
 </div>

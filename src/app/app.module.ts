@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 
 import { MaterialModule } from '@angular/material';
 import { StoreInfoComponent } from './components/store-info/store-info.component';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { StoreInfoComponent } from './components/store-info/store-info.component
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule
+    MaterialModule,
+    NgbModule.forRoot()
   ],
   providers: [DataService, SuperService, ConfigService, StoreService, TotemService, MQTTService],
   bootstrap: [AppComponent]
