@@ -92,7 +92,12 @@ export class AppComponent{
                   this.storeService.getStoresById(this.storesID[i]).subscribe(
                     store => {
                       console.log("store", store);
-                      store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor
+                      
+                      if (i == "1") 
+                        store.aproxTime = 3 // Per a fer demo
+                      else
+                        store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor
+
                       this.stores.push(store);
                       this._mqService.configure(this.config);
                       this._mqService.try_connect()
