@@ -21,6 +21,8 @@ import { MQTTService } from './services/mqtt';
 export class AppComponent{
   config: Config;
 
+  maxTimeToShowConfirmation: Number;
+
   stores: any[];
  
   storesID: string[];
@@ -45,6 +47,11 @@ export class AppComponent{
   private superService: SuperService, private storeService: StoreService, private _mqService: MQTTService) {
     this.store = [];
     this.stores = [];
+    this.setMaxTimeToShowConfirmation(5);
+  }
+
+  setMaxTimeToShowConfirmation (number: Number) {
+    this.maxTimeToShowConfirmation = number;
   }
 
   capitalizeFirstLetter(string) {
@@ -61,7 +68,7 @@ export class AppComponent{
     let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
     this.store = this.stores.filter(store => store.name === storeClickedName)[0];
     console.log("storeToComponent", this.store);
-    this.store[0].aproxTime = "3 minuts";
+    //this.store[0].aproxTime = "3 minuts";
     //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
 		//this.name = event;
 		console.log(event);
@@ -85,7 +92,7 @@ export class AppComponent{
                   this.storeService.getStoresById(this.storesID[i]).subscribe(
                     store => {
                       console.log("store", store);
-                      store.aproxTime = "3 minuts"; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor
+                      store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor
                       this.stores.push(store);
                       this._mqService.configure(this.config);
                       this._mqService.try_connect()

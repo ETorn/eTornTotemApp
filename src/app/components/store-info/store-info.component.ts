@@ -20,9 +20,7 @@ export class StoreInfoComponent implements OnInit {
   ngOnInit() {
     console.log(this.store)
   }
-
   
-
   toggleStoreInfo(event) {
     this.showStoreInfo = false;
     this.change.emit(this.showStoreInfo);

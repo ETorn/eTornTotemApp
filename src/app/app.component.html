@@ -2,36 +2,38 @@
   <img src="src/assets/img/caprabo.png">
 </div>
 <div class="container">
-  <div class="row" *ngFor="let store of stores; let i = index">
-    <a layout-align="center" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="storeInfoOnClick($event)">
-      <span class="storeName">{{store.name}}</span>
-    </a>
-      <div class="row-2">
-        <div class="col-sm-4">
-          <div class="storeTurn">
-            <span class="textStoreTurn">Torn Actual</span>
-            <span class="mdl-chip">
-              <span class="mdl-chip__text">{{store.storeTurn}}</span>
-            </span>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="usersTurn">
-            <span class="textUsersTurn">Torn Disponible</span>
-            <span class="mdl-chip">
-              <span class="mdl-chip__text">{{store.usersTurn}}</span>
-            </span>
-          </div>
-        </div>
+  <div class="store-card mdl-card mdl-shadow--2dp" *ngFor="let store of stores; let i = index">
+    <div class="row">
+      <a layout-align="center" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="storeInfoOnClick($event)">
+        <span class="storeName">{{store.name}}</span>
+      </a>
+    </div>
+        <div class="row-2">
           <div class="col-sm-4">
-            <div class="aproxTime">
-              <span class="textAproxTime">Temps</span>
+            <div class="storeTurn">
+              <span class="textStoreTurn">Actual</span>
               <span class="mdl-chip">
-                <span class="mdl-chip__text">{{store.aproxTime}}</span>
+                <span class="mdl-chip__text">{{store.storeTurn}}</span>
               </span>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="usersTurn">
+              <span class="textUsersTurn">Disponible</span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">{{store.usersTurn}}</span>
+              </span>
+            </div>
+          </div>
+            <div class="col-sm-4">
+              <div class="aproxTime">
+                <span class="textAproxTime">Temps</span>
+                <span class="mdl-chip">
+                  <span class="mdl-chip__text">{{store.aproxTime}} minuts</span>
+                </span>
+            </div>
           </div>
         </div>
-      </div>
   </div>
 </div>
-<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo" [store]="store"></app-store-info>
+<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > maxTimeToShowConfirmation"  [store]="store"></app-store-info>
