@@ -1,7 +1,7 @@
 <div>
   <img src="src/assets/img/caprabo.png">
 </div>
-<div class="container">
+<div class="container" [class.hidden-container]="showStoreInfo">
   <div class="store-card mdl-card mdl-shadow--2dp" *ngFor="let store of stores; let i = index">
     <div class="row">
       <a layout-align="center" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="storeInfoOnClick($event)">

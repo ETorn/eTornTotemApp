@@ -9,9 +9,25 @@
 
 .store-card.mdl-card {
     background-color:  rgba(63, 81, 181, 1);
-    top: 22%;
     margin: auto;
+    top: 0;
+    transition: all 0.3s ease-out;
+    animation: fadein 0.3s;
 }
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
+.move-card {
+    transform: translate(0,48%);
+}
+
 .innerStoreInfo {
     text-align: center;
 }

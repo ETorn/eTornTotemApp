@@ -17,6 +17,10 @@
     background: #3f51b5;
 }
 
+.hidden-container {
+   opacity: 0.8;
+}
+
 .row {
     width: 100%;
 }

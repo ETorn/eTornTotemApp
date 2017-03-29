@@ -15,10 +15,13 @@ export class StoreInfoComponent implements OnInit {
   @Output()
   change = new EventEmitter();
 
-  constructor() { }
+  loaded: boolean;
+
+  constructor() {this.loaded = false;}
 
   ngOnInit() {
-    console.log(this.store)
+    console.log(this.store);
+    window.setTimeout(() => this.loaded = true);
   }
   
   toggleStoreInfo(event) {
