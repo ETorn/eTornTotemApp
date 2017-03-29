@@ -61,6 +61,17 @@ a {
 .aproxTime {
 }
 
+.noQueue {
+    color: white;
+}
+.textQueue {
+    color: white;
+}
+
+.accent {
+    color: #e91e63;
+}
+
 .superName {
     color: #3F51B5;
     margin-left: 2%;

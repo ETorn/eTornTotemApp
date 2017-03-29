@@ -9,31 +9,26 @@
       </a>
     </div>
         <div class="row-2">
-          <div class="col-sm-4">
-            <div class="storeTurn">
-              <span class="textStoreTurn">Actual</span>
-              <span class="mdl-chip">
+          <div class="col-sm-6" *ngIf="store.queue > 0">
+            <div class="queue">
+              <span class="textQueue">Tens <span class="accent"> {{store.queue}} </span> persona davant teu</span>
+              <!--<span class="mdl-chip">
                 <span class="mdl-chip__text">{{store.storeTurn}}</span>
-              </span>
+              </span>-->
             </div>
           </div>
-          <div class="col-sm-4">
-            <div class="usersTurn">
-              <span class="textUsersTurn">Disponible</span>
+          <div class="col-sm-6" *ngIf="store.queue > 0">
+            <div class="aproxTime">
+              <span class="textAproxTime">Temps aproximat</span>
               <span class="mdl-chip">
-                <span class="mdl-chip__text">{{store.usersTurn}}</span>
+                <span class="mdl-chip__text">{{store.aproxTime}} minuts</span>
               </span>
-            </div>
-          </div>
-            <div class="col-sm-4">
-              <div class="aproxTime">
-                <span class="textAproxTime">Temps</span>
-                <span class="mdl-chip">
-                  <span class="mdl-chip__text">{{store.aproxTime}} minuts</span>
-                </span>
             </div>
           </div>
         </div>
+        <div class="noQueue" *ngIf="store.queue == 0">
+          <span class="textNoqueue">No hi ha cap persona davant teu. Aprofita!</span>
+      </div>
   </div>
 </div>
 <app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > maxTimeToShowConfirmation"  [store]="store"></app-store-info>
