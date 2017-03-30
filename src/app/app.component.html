@@ -11,7 +11,7 @@
         <div class="row-2">
           <div class="col-sm-6" *ngIf="store.queue > 0">
             <div class="queue">
-              <span class="textQueue">Tens <span class="accent"> {{store.queue}} </span> persona davant teu</span>
+              <span class="textQueue">Tens <span class="accent"> {{store.queue}} </span> persones davant teu</span>
               <!--<span class="mdl-chip">
                 <span class="mdl-chip__text">{{store.storeTurn}}</span>
               </span>-->
@@ -31,4 +31,4 @@
       </div>
   </div>
 </div>
-<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > maxTimeToShowConfirmation "  [store]="store"></app-store-info>
+<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > maxTimeToShowConfirmation && store.queue > 0"  [store]="store"></app-store-info>

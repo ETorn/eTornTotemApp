@@ -155,8 +155,8 @@ export class AppComponent{
           this.stores[i].storeTurn = message;
         else if (messageType === "usersTurn")
           this.stores[i].usersTurn = message;
-        /*else if (messageType === "queue")
-        Agafar cua si la afegim al model Store*/
+        else if (messageType === "queue")
+          this.stores[i].queue = message;
       }
     }
   }

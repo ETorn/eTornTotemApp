@@ -1,10 +1,10 @@
 {
     "totem": {
-        "identifier": "C004"
+        "identifier": "C001"
     },
     "node": {
-        "address": "http://192.168.204.227:8080",
-        "mqttAddress": "ws://192.168.204.227:1884"
+        "address": "http://192.168.204.200:8080",
+        "mqttAddress": "ws://192.168.204.200:1884"
     },
 
     "subscribe": [
