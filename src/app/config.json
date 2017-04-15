@@ -3,8 +3,8 @@
         "identifier": "C001"
     },
     "node": {
-        "address": "http://192.168.204.200:8080",
-        "mqttAddress": "ws://192.168.204.200:1884"
+        "address": "http://192.168.1.132:8080",
+        "mqttAddress": "ws://192.168.1.132:1884"
     },
 
     "subscribe": [

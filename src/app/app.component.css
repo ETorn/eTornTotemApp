@@ -33,16 +33,26 @@
 .storeName {
     color: white;
 }
+.textDisponibleTurn {
+    color: white;
+}
 
 a {
     font-size: 250%;
 }
 
-.mdl-button {
+/*.mdl-button {
     height: 100%;
     margin-bottom: 5%;
     width: 100%;
     margin-left: 3%;    
+}*/
+
+.printButton {
+	height: 100%;
+    margin-bottom: 5%;
+    width: 100%;
+    margin-left: 3%; 
 }
 
 .textStoreTurn {
@@ -75,6 +85,11 @@ a {
 .accent {
     color: #e91e63;
 }
+
+.accentUsersTurn {
+    color: #e91e63;
+}
+
 
 .superName {
     color: #3F51B5;

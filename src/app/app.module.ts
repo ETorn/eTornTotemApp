@@ -12,7 +12,6 @@ import { MQTTService } from './services/mqtt/mqtt.service';
 
 import { AppComponent } from './app.component';
 
-import { MaterialModule } from '@angular/material';
 import { StoreInfoComponent } from './components/store-info/store-info.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -25,7 +24,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule,
     NgbModule.forRoot()
   ],
   providers: [DataService, SuperService, ConfigService, StoreService, TotemService, MQTTService],
