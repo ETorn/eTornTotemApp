@@ -5,6 +5,7 @@ import { SuperService } from './services/super/super.service';
 import { TotemService } from './services/totem/totem.service';
 import { StoreService } from './services/store/store.service';
 import { ConfigService } from './services/config/config.service';
+import { CaesarService } from './services/caesar/caesar.service';
 
 import { StoreInfoComponent } from './components/store-info/store-info.component';
 
@@ -43,9 +44,12 @@ export class AppComponent{
   filteredStores : any[];
   filteredStoreNames : string[];
 
+  storeHaveAproxTime: boolean;
+
   constructor(private dataService: DataService, private configService: ConfigService, private totemService: TotemService,
-  private superService: SuperService, private storeService: StoreService, private _mqService: MQTTService) {
+  private superService: SuperService, private storeService: StoreService, private caesarService: CaesarService, private _mqService: MQTTService) {
     this.store = [];
+    this.storeHaveAproxTime = false;
     this.stores = [];
     this.setMaxTimeToShowConfirmation(5);
   }
@@ -93,16 +97,28 @@ export class AppComponent{
                     store => {
                       console.log("store", store);
                       
-                      if (i == "1") 
-                        store.aproxTime = 3 // Per a fer demo
-                      else
-                        store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor
+                      this.caesarService.getStoreAverageTime(store._id).subscribe(
+                        time => {
 
-                      this.stores.push(store);
-                      this._mqService.configure(this.config);
-                      this._mqService.try_connect()
-                         .then(this.on_connect)
-                         .catch(this.on_error); 
+                          /*if (i == "1") 
+                            store.aproxTime = 3 // Per a fer demo
+                          else
+                            store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor*/
+                            
+                          if (time > 0)
+                            this.storeHaveAproxTime = true;
+
+                          store.aproxTime = time;
+
+                          console.log(time);
+
+                          this.stores.push(store);
+                          this._mqService.configure(this.config);
+                          this._mqService.try_connect()
+                            .then(this.on_connect)
+                            .catch(this.on_error); 
+                        }
+                      )
                     }
                   )
                 }

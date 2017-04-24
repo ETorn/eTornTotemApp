@@ -9,6 +9,7 @@ import { ConfigService } from './services/config/config.service';
 import { StoreService } from './services/store/store.service';
 import { TotemService } from './services/totem/totem.service';
 import { MQTTService } from './services/mqtt/mqtt.service';
+import { CaesarService } from './services/caesar/caesar.service';
 
 import { AppComponent } from './app.component';
 
@@ -26,7 +27,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [DataService, SuperService, ConfigService, StoreService, TotemService, MQTTService],
+  providers: [DataService, SuperService, ConfigService, StoreService, TotemService, MQTTService, CaesarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

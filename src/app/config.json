@@ -3,10 +3,13 @@
         "identifier": "C001"
     },
     "node": {
-        "address": "http://192.168.1.132:8080",
-        "mqttAddress": "ws://192.168.1.132:1884"
+        "address": "http://192.168.1.129:8080",
+        "mqttAddress": "ws://192.168.1.129:1884"
     },
 
+    "caesar": {
+        "address": "http://192.168.1.129:8081"
+    },
     "subscribe": [
         
     ],
