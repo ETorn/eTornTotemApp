@@ -159,20 +159,28 @@ export class AppComponent{
 
     console.log("messages",this.messages);
     console.log("mqMessage",this.mq);
-    console.log("turn",this.mq[0]);
+    //console.log("turn",this.mq[0]);
     console.log("message", message);
+
+    
 
     let storeIdTopic = this.topic.split('/')[2];
     let messageType = this.topic.split('/')[3];
     
     for(let i in this.stores) {
       if(storeIdTopic === this.stores[i]._id) {
+        console.log("storeTurn", this.stores[i].storeTurn);
+        console.log("usersTurn", this.stores[i].usersTurn);
+        console.log("queue", this.stores[i].queue);
+        console.log("aproxTime", this.stores[i].aproxTime);
         if (messageType === "storeTurn")
           this.stores[i].storeTurn = message;
         else if (messageType === "usersTurn")
           this.stores[i].usersTurn = message;
         else if (messageType === "queue")
           this.stores[i].queue = message;
+        else if (messageType === "aproxTime")
+          this.stores[i].aproxTime = message;
       }
     }
   }
