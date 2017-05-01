@@ -28,12 +28,11 @@ var genTextCanvas = once(function(cb) {
 });
 
 var getTextImage = function(s, cb) {
+  console.time("getTextImage");
   genTextCanvas(function(err, text){
     if (err) return cb(err);
 
-    console.time("clone");
     text = text.clone();
-    console.timeEnd("clone");
 
     loadFont(function (err, font) {
       if (err) return cb(err);
@@ -41,19 +40,24 @@ var getTextImage = function(s, cb) {
       text.print(font, 0, 0, s);
       text.autocrop();
 
+      console.timeEnd("getTextImage");
+
       return cb(null, text);
     });
   });
 };
 
 var generateBaseImage = function generateBaseImage(cb) {
+  console.time("genBaseImg");
   l("Generating image");
   new Jimp(IMG_WIDTH, IMG_HEIGHT, 0xFFFFFF50, function(err, img){
+    console.timeEnd("genBaseImg");
     return cb(err, img);
   });
 };
 
 var addLogo = function addLogo(img, cb) {
+  console.time("addLogo");
   l("Loading base caprabo img");
   new Jimp("caprabo.png", function(err, caprabo){
     if (err) return cb(err);
@@ -67,11 +71,13 @@ var addLogo = function addLogo(img, cb) {
     l("Adding it");
     img.composite(caprabo, capraboX, capraboY);
 
+    console.timeEnd("addLogo");
     return cb(null, img);
   });
 };
 
 var addTextTornTitle = function addTextTornTitle(img, cb) {
+  console.time("addTextTornTitle");
   l("Generating text");
   getTextImage("El seu torn és:", function(err, tornTextImage){
     if (err) return cb(err);
@@ -82,16 +88,18 @@ var addTextTornTitle = function addTextTornTitle(img, cb) {
     l("Writing it");
     img.composite(tornTextImage, tornTextImageX, tornTextImageY);
 
+    console.timeEnd("addTextTornTitle");
     return cb(null, img);
   });
 };
 
 var addTextTornNumber = function addTextTornNumber(turn, img, cb) {
+  console.time("addTextTornNumber");
   l("Generating text");
   getTextImage(turn, function(err, tornNumImage){
     if (err) return cb(err);
 
-    tornNumImage.resize(50, Jimp.AUTO, Jimp.RESIZE_BICUBIC);
+    tornNumImage.resize(Jimp.AUTO, 80, Jimp.RESIZE_BICUBIC);
 
     var tornNumImageX = img.bitmap.width / 2 - tornNumImage.bitmap.width / 2;
     var tornNumImageY = 150;
@@ -99,11 +107,13 @@ var addTextTornNumber = function addTextTornNumber(turn, img, cb) {
     l("Writing it");
     img.composite(tornNumImage, tornNumImageX, tornNumImageY);
 
+    console.timeEnd("addTextTornNumber");
     return cb(null, img);
   });
 };
 
 var addTextDownload = function addTextDownload(img, cb) {
+  console.time("addTextDownload");
   l("Generating text");
   getTextImage("Descarrega la nostra app:", function(err, text){
     if (err) return cb(err);
@@ -116,11 +126,14 @@ var addTextDownload = function addTextDownload(img, cb) {
     l("Writing it");
     img.composite(text, textX, textY);
 
+    console.timeEnd("addTextDownload");
     return cb(null, img);
   });
 };
 
 var addQrCode = function addQrCode(img, cb) {
+  console.time("addQrCode");
+
   var qrWritableStreamBuffer = new streamBuffers.WritableStreamBuffer();
 
   l("Generating qr code");
@@ -136,13 +149,15 @@ var addQrCode = function addQrCode(img, cb) {
       l("Writing qr code");
       img.composite(qr, qrX, qrY);
 
+      console.timeEnd("addQrCode");
       return cb(null, img);
     });
   });
 };
 
 var covertToMonochrome = function covertToMonochrome(img, cb) {
-  l("Finishing image");
+  console.time("covertToMonochrome");
+  l("Covert to monochrome");
   img.scan(0, 0, img.bitmap.width, img.bitmap.height, function (x, y, idx) {
     // x, y is the position of this pixel on the image
     // idx is the position start position of this rgba tuple in the bitmap Buffer
@@ -177,23 +192,26 @@ var covertToMonochrome = function covertToMonochrome(img, cb) {
 
   });*/
 
+  console.timeEnd("covertToMonochrome");
   return cb(null, img);
 };
 
 var rotateImg = function rotateImg(img, cb) {
+  console.time("rotateImg");
   l("Rotating it");
-  img.rotate(180);
+  img.flip(true, true);
 
+  console.timeEnd("rotateImg");
   return cb(null, img);
 };
 
 var getImgBuffer = function getImgBuffer(img, cb) {
   l("Getting image buffer");
-  console.time("buffer");
+  console.time("getImgBuffer");
   img.getBuffer(Jimp.MIME_PNG, function(err, imgBuffer){
     if (err) return cb(err);
 
-    console.timeEnd("buffer");
+    console.timeEnd("getImgBuffer");
 
     return cb(null, imgBuffer);
   });
@@ -209,11 +227,11 @@ var printImg = function printImg(imgBuffer, cb) {
   var Printer = require("thermalprinter");
 
   serialPort.on("open",function() {
-    var printer = new Printer(serialPort/*, {maxPrintingDots: 10, heatingTime: 60, heatingInterval: 1}*/);
+    var printer = new Printer(serialPort/*, {maxPrintingDots: 100, heatingTime: 30, heatingInterval: 0}*/);
     printer.on("ready", function() {
       printer
         .center()
-        .printImage(imgBuffer)
+        .printImage(imgBuffer, Jimp.MIME_PNG)
         .lineFeed(3)
         .print(function() {
           l("done printing");
@@ -226,7 +244,7 @@ var printImg = function printImg(imgBuffer, cb) {
   });
 };
 
-var getBaseImage = once(function getBaseImage(cb) {
+var genBaseImage = once(function genBaseImage(cb) {
   console.time("img");
   async_.waterfall(
     [
@@ -235,8 +253,6 @@ var getBaseImage = once(function getBaseImage(cb) {
       addTextTornTitle,
       addTextDownload,
       addQrCode,
-      covertToMonochrome,
-      rotateImg,
     ],
 
     function(err, img) {
@@ -246,8 +262,18 @@ var getBaseImage = once(function getBaseImage(cb) {
   );
 });
 
-module.exports = printTicketForTurn = function printTicketForTurn(turn, cb) {
+var getBaseImage = function getBaseImage(cb) {
+  genBaseImage(function(err, img){
+    img = img.clone();
+    cb(err, img);
+  });
+}
+
+module.exports.printTicketForTurn = function printTicketForTurn(turn, cb) {
   console.time("total");
+
+  turn = "" + turn;
+
   async_.waterfall(
     [
       getBaseImage,
@@ -256,8 +282,11 @@ module.exports = printTicketForTurn = function printTicketForTurn(turn, cb) {
           cbb(err, img);
         });
       },
-      getImgBuffer,
-      function(img, cb){cb(null);}//printImg
+      covertToMonochrome,
+      rotateImg,
+      //getImgBuffer,
+      //printImg
+      function(img, cb){img.write("test.png");cb(null, img);}
     ],
 
     function(err, result) {
