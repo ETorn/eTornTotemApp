@@ -5,13 +5,13 @@ var Jimp = require("jimp");
 var qrcode = require("qrcode");
 var SerialPort = require("serialport");
 var streamBuffers = require("stream-buffers");
-var once = require("async-once");
 var async_ = require("async");
+var memoize = require("memoizeasync");
 
 var IMG_WIDTH = 384;
 var IMG_HEIGHT = 500;
 
-var loadFont = once(function(cb) {
+var loadFont = memoize(function(cb) {
   console.time("loadFont");
   Jimp.loadFont(Jimp.FONT_SANS_32_BLACK, function(err, font) {
     console.timeEnd("loadFont");
@@ -19,7 +19,7 @@ var loadFont = once(function(cb) {
   });
 });
 
-var genTextCanvas = once(function(cb) {
+var genTextCanvas = memoize(function(cb) {
   console.time("genTextCanvas");
   new Jimp(500, 100, 0xFFFFFFFF, function(err, text){
     console.timeEnd("genTextCanvas");
@@ -27,7 +27,7 @@ var genTextCanvas = once(function(cb) {
   });
 });
 
-var getTextImage = function(s, cb) {
+var getTextImage = memoize(function(s, cb) {
   console.time("getTextImage");
   genTextCanvas(function(err, text){
     if (err) return cb(err);
@@ -45,7 +45,7 @@ var getTextImage = function(s, cb) {
       return cb(null, text);
     });
   });
-};
+});
 
 var generateBaseImage = function generateBaseImage(cb) {
   console.time("genBaseImg");
@@ -69,7 +69,7 @@ var addLogo = function addLogo(img, cb) {
     var capraboY = 10;
 
     l("Adding it");
-    img.composite(caprabo, capraboX, capraboY);
+    img.blit(caprabo, capraboX, capraboY);
 
     console.timeEnd("addLogo");
     return cb(null, img);
@@ -86,7 +86,7 @@ var addTextTornTitle = function addTextTornTitle(img, cb) {
     var tornTextImageY = 100;
 
     l("Writing it");
-    img.composite(tornTextImage, tornTextImageX, tornTextImageY);
+    img.blit(tornTextImage, tornTextImageX, tornTextImageY);
 
     console.timeEnd("addTextTornTitle");
     return cb(null, img);
@@ -105,7 +105,7 @@ var addTextTornNumber = function addTextTornNumber(turn, img, cb) {
     var tornNumImageY = 150;
 
     l("Writing it");
-    img.composite(tornNumImage, tornNumImageX, tornNumImageY);
+    img.blit(tornNumImage, tornNumImageX, tornNumImageY);
 
     console.timeEnd("addTextTornNumber");
     return cb(null, img);
@@ -124,7 +124,7 @@ var addTextDownload = function addTextDownload(img, cb) {
     var textY = 270;
 
     l("Writing it");
-    img.composite(text, textX, textY);
+    img.blit(text, textX, textY);
 
     console.timeEnd("addTextDownload");
     return cb(null, img);
@@ -147,11 +147,33 @@ var addQrCode = function addQrCode(img, cb) {
       var qrY = 300;
 
       l("Writing qr code");
-      img.composite(qr, qrX, qrY);
+      img.blit(qr, qrX, qrY);
 
       console.timeEnd("addQrCode");
       return cb(null, img);
     });
+  });
+};
+
+var addDate = function addDate(img, cb) {
+  console.time("addDate");
+  l("Generating date");
+  var date = new Date();
+  var dateString = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+  var timeString = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  getTextImage(timeString + " - " + dateString , function(err, text){
+    if (err) return cb(err);
+
+    text.resize(100, Jimp.AUTO);
+
+    var textX = img.bitmap.width / 2 - text.bitmap.width / 2;
+    var textY = 470;
+
+    l("Writing it");
+    img.blit(text, textX, textY);
+
+    console.timeEnd("addDate");
+    return cb(null, img);
   });
 };
 
@@ -244,7 +266,7 @@ var printImg = function printImg(imgBuffer, cb) {
   });
 };
 
-var genBaseImage = once(function genBaseImage(cb) {
+var genBaseImage = memoize(function genBaseImage(cb) {
   console.time("img");
   async_.waterfall(
     [
@@ -263,8 +285,10 @@ var genBaseImage = once(function genBaseImage(cb) {
 });
 
 var getBaseImage = function getBaseImage(cb) {
+  console.time("getBaseImage");
   genBaseImage(function(err, img){
     img = img.clone();
+    console.timeEnd("getBaseImage");
     cb(err, img);
   });
 }
@@ -282,8 +306,9 @@ module.exports.printTicketForTurn = function printTicketForTurn(turn, cb) {
           cbb(err, img);
         });
       },
+      addDate,
       covertToMonochrome,
-      rotateImg,
+      //rotateImg,
       //getImgBuffer,
       //printImg
       function(img, cb){img.write("test.png");cb(null, img);}

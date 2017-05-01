@@ -1,8 +1,11 @@
 var p = require("./printer");
 
-p.printTicketForTurn(100, function(err) {
-  console.log("Done");
-p.printTicketForTurn(new Date(), function(err) {
-  console.log("Done");
-});
+p.printTicketForTurn(1, function(err) {
+  console.log("a");
+  p.printTicketForTurn(1, function(err) {
+    console.log("a");
+    p.printTicketForTurn(1, function(err) {
+      console.log("a");
+    });
+  });
 });
