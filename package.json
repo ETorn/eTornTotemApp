@@ -25,6 +25,7 @@
     "async-once": "^1.0.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "debug": "^2.6.6",
     "jimp": "^0.2.27",
     "mqtt": "^2.5.0",
     "ng2-bootstrap": "^1.4.2",
