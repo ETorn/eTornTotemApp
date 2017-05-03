@@ -10,6 +10,7 @@ import { StoreService } from './services/store/store.service';
 import { TotemService } from './services/totem/totem.service';
 import { MQTTService } from './services/mqtt/mqtt.service';
 import { CaesarService } from './services/caesar/caesar.service';
+import { PrintService } from './services/print/print.service';
 
 import { AppComponent } from './app.component';
 
@@ -27,7 +28,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [DataService, SuperService, ConfigService, StoreService, TotemService, MQTTService, CaesarService],
+  providers: [DataService, SuperService, ConfigService, StoreService, TotemService, MQTTService, CaesarService, PrintService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

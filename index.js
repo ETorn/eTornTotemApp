@@ -6,7 +6,7 @@ var path = require('path');
 var express    = require('express');      // call express
 var app        = express();                 // define our app using express
 var printer    = require('./printer.js');
-
+var cors       = require('cors');
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 var bodyParser = require('body-parser');
@@ -14,7 +14,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Point static path to dist
-//app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/src',express.static(path.join(__dirname, 'src')));
+app.use('/node_modules',express.static(path.join(__dirname, 'node_modules'))); //TOFIX
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -24,6 +26,7 @@ var router = express.Router();              // get an instance of the express Ro
 printer.getBaseImage(function(){});
 
 app.use('/print', router);
+app.use(cors());
 
 
 // Catch all other routes and return the index file

@@ -6,6 +6,7 @@ import { TotemService } from './services/totem/totem.service';
 import { StoreService } from './services/store/store.service';
 import { ConfigService } from './services/config/config.service';
 import { CaesarService } from './services/caesar/caesar.service';
+import { PrintService } from './services/print/print.service';
 
 import { StoreInfoComponent } from './components/store-info/store-info.component';
 
@@ -26,7 +27,7 @@ export class AppComponent{
 
   stores: any[];
  
-  storesID: string[];
+  storesID: any[];
   superName: string;
 
   showStoreInfo = false;
@@ -47,7 +48,8 @@ export class AppComponent{
   storeHaveAproxTime: boolean;
 
   constructor(private dataService: DataService, private configService: ConfigService, private totemService: TotemService,
-  private superService: SuperService, private storeService: StoreService, private caesarService: CaesarService, private _mqService: MQTTService) {
+  private superService: SuperService, private storeService: StoreService, private caesarService: CaesarService, private _mqService: MQTTService,
+  private printService: PrintService) {
     this.store = [];
     this.storeHaveAproxTime = false;
     this.stores = [];
@@ -68,10 +70,20 @@ export class AppComponent{
   }
 
   storeInfoOnClick(event) {
-    this.showStoreInfo = true;
-    let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
-    this.store = this.stores.filter(store => store.name === storeClickedName)[0];
-    console.log("storeToComponent", this.store);
+    if (this.storeHaveAproxTime) {
+      this.showStoreInfo = true;
+      let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
+      this.store = this.stores.filter(store => store.name === storeClickedName)[0];
+      console.log("storeToComponent", this.store);
+    }
+    else {
+      //Canviar torn per torn real
+      this.printService.printTicket("5").subscribe (
+        message => {
+          console.log("message", message);
+        }
+      )
+    }
     //this.store[0].aproxTime = "3 minuts";
     //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
 		//this.name = event;
@@ -92,8 +104,8 @@ export class AppComponent{
                 this.storesID = superMrkt.stores;
                 this.superName = superMrkt.address;
                 for (let i in this.storesID) {
-                  this.config.subscribe.push("etorn/store/" + this.storesID[i] + "/#") //Afegeix una subscripció a tots els topics de cada una de les parades
-                  this.storeService.getStoresById(this.storesID[i]).subscribe(
+                  this.config.subscribe.push("etorn/store/" + this.storesID[i]._id + "/#") //Afegeix una subscripció a tots els topics de cada una de les parades
+                  this.storeService.getStoresById(this.storesID[i]._id).subscribe(
                     store => {
                       console.log("store", store);
                       
@@ -105,7 +117,7 @@ export class AppComponent{
                           else
                             store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor*/
                             
-                          if (time > 0)
+                          if (time > this.config.minAproxTime)
                             this.storeHaveAproxTime = true;
 
                           store.aproxTime = time;
