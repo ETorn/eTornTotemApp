@@ -284,7 +284,7 @@ var genBaseImage = memoize(function genBaseImage(cb) {
   );
 });
 
-var getBaseImage = function getBaseImage(cb) {
+var getBaseImage = module.exports.getBaseImage = function getBaseImage(cb) {
   console.time("getBaseImage");
   genBaseImage(function(err, img){
     img = img.clone();
