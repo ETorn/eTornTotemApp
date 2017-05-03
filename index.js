@@ -22,12 +22,13 @@ app.use('/node_modules',express.static(path.join(__dirname, 'node_modules'))); /
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
+
 //Carregar imatge abans per a estalviar temps
 printer.getBaseImage(function(){});
 
-app.use('/print', router);
+require ('./server/routes/print') (router, printer);
+app.use('/', router);
 app.use(cors());
-
 
 // Catch all other routes and return the index file
 /*app.get('*', (req, res) => {

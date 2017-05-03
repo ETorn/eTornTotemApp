@@ -78,7 +78,8 @@ export class AppComponent{
     }
     else {
       //Canviar torn per torn real
-      this.printService.printTicket("5").subscribe (
+      console.log("onClickPrint");
+      this.printService.printTicket("5").subscribe(
         message => {
           console.log("message", message);
         }

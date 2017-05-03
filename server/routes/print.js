@@ -1,13 +1,13 @@
-var printer = require('../../printer.js')
-
-module.exports = function(router) {
+module.exports = function(router, printer) {
     router.route('/print/:turn')
     .get(function (req, res) {
         if(req.params.turn != null) {
-            printer.printTicketForTurn(req.params.turn, function (err, result) {
+            printer.printTicketForTurn(req.params.turn, function () {
                 res.json({'message': 'Ticket printed'});
             });
         }
-        res.json({'message': 'Turn not send'});
+        else {
+            res.json({'message': 'Turn not send'});
+        }
     });
 }

@@ -311,7 +311,7 @@ module.exports.printTicketForTurn = function printTicketForTurn(turn, cb) {
       //rotateImg,
       //getImgBuffer,
       //printImg
-      function(img, cb){img.write("test.png");cb(null, img);}
+      function(img, cb2){img.write("test.png");cb2(null, img);}
     ],
 
     function(err, result) {
