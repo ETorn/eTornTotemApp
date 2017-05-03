@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { PrintService } from '../../services/print/print.service';
 @Component({
   selector: 'app-store-info',
   templateUrl: './store-info.component.html',
@@ -17,7 +18,7 @@ export class StoreInfoComponent implements OnInit {
 
   loaded: boolean;
 
-  constructor() {this.loaded = false;}
+  constructor(private printService: PrintService) {this.loaded = false;}
 
   ngOnInit() {
     console.log(this.store);
@@ -25,6 +26,18 @@ export class StoreInfoComponent implements OnInit {
   }
   
   toggleStoreInfo(event) {
+    this.showStoreInfo = false;
+    this.change.emit(this.showStoreInfo);
+  }
+
+  printTicket() {
+    //Canviar torn per torn real
+    console.log("onClickPrint");
+    this.printService.printTicket("5").subscribe(
+      message => {
+        console.log("message", message);
+      }
+    )
     this.showStoreInfo = false;
     this.change.emit(this.showStoreInfo);
   }

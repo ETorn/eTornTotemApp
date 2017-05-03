@@ -109,7 +109,7 @@ export class AppComponent{
                   this.storeService.getStoresById(this.storesID[i]._id).subscribe(
                     store => {
                       console.log("store", store);
-                      
+                     // store.queue = 10; uncoment to test
                       this.caesarService.getStoreAverageTime(store._id).subscribe(
                         time => {
 
@@ -118,12 +118,12 @@ export class AppComponent{
                           else
                             store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor*/
                             
-                          if (time > this.config.minAproxTime)
+                          if (time > this.config.minAproxTime) //comment to test
                             this.storeHaveAproxTime = true;
 
-                          store.aproxTime = time;
+                          //store.aproxTime = 10; uncoment to test
 
-                          console.log(time);
+                          //console.log("time",store.aproxTime);
 
                           this.stores.push(store);
                           this._mqService.configure(this.config);
