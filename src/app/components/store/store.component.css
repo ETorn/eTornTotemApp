@@ -5,15 +5,10 @@
     background: #3f51b5;
 }
 
-.container {
-    width: 100%;
-    max-width: 100%;
-    margin-left: -1%;
-}
-
 
 .store-card {
-    width: 100%;
+    width: 50%;
+    left: 25%;
     min-height: 0;
     padding: 15px;
     margin-left: 0.5%;

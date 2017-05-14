@@ -50,8 +50,7 @@ export class AppComponent{
   storeHaveAproxTime: boolean;
 
   constructor(private dataService: DataService, private configService: ConfigService, private totemService: TotemService,
-  private superService: SuperService, private storeService: StoreService, private caesarService: CaesarService, private _mqService: MQTTService,
-  private printService: PrintService) {
+  private superService: SuperService, private storeService: StoreService, private caesarService: CaesarService, private _mqService: MQTTService) {
     this.store = [];
     this.storeHaveAproxTime = false;
     this.stores = [];
@@ -142,34 +141,6 @@ export class AppComponent{
 
   storeMood (event) {
     this.showStoreInfo = event;
-  }
-
-  storeInfoOnClick(event) {
-    console.log(event);
-    console.log("this", this);
-    let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
-    this.store = this.stores.filter(store => store.name === storeClickedName)[0];
-    console.log("storeToComponent", this.store);
-
-    if (this.store.storeHaveAproxTime) {// mostrem el component StoreInfo
-      this.showStoreInfo = true;
-      console.log("eee");
-    } 
-      
-    else {
-      //Canviar torn per torn real
-      console.log("onClickPrint");
-      this.printService.printTicket("5").subscribe(
-        message => {
-          console.log("message", message);
-        }
-      )
-    }
-    console.log("showStoreInfo: ", this.showStoreInfo)
-    //this.store[0].aproxTime = "3 minuts";
-    //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
-		//this.name = event;
-		
   }
 
   

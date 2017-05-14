@@ -15,12 +15,15 @@ import { PrintService } from './services/print/print.service';
 import { AppComponent } from './app.component';
 
 import { StoreInfoComponent } from './components/store-info/store-info.component';
+import { StoreComponent } from './components/store/store.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    StoreInfoComponent
+    StoreInfoComponent,
+    StoreComponent
   ],
   imports: [
     BrowserModule,

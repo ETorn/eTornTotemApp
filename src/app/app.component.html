@@ -1,38 +1,8 @@
-<div>
+
+<div class="container" [class.hidden-container]="showStoreInfo">
+  <div>
   <img src="src/assets/img/caprabo.png">
 </div>
-<div class="container" [class.hidden-container]="showStoreInfo">
-  <div class="store-card mdl-card mdl-shadow--2dp" *ngFor="let store of stores; let i = index" (click)="storeInfoOnClick($event)">
-    <div class="row">
-      <a layout-align="center" class="printButton" >
-        <span class="storeName">{{store.name}}</span>
-      </a>
-    </div>
-        <div class="row-2">
-          <div [ngClass]="getStyleClasses(i)" *ngIf="store.queue > 0" > <!--Ajustem  les columnes del div depenent de si hem de mostrar temps o no-->
-            <div class="queue">
-              <span class="textQueue">Tens <span class="accent"> {{store.queue}} </span> persones davant teu</span>
-              <!--<span class="mdl-chip">
-                <span class="mdl-chip__text">{{store.storeTurn}}</span>
-              </span>-->
-            </div>
-          </div>
-          <div [ngClass]="getStyleClasses(i)" *ngIf="store.aproxTime > 0 && store.queue > 0 ">
-            <div class="aproxTime">
-              <span class="textAproxTime">Temps aproximat</span>
-              <span class="mdl-chip">
-                <span class="mdl-chip__text">{{store.aproxTime}} minuts</span>
-              </span>
-            </div>
-          </div>
-          <!--<div class="disponibleTurn">
-            <span class="textDisponibleTurn">Torn disponible: <span class="accentUsersTurn"> {{store.usersTurn}} </span> </span>
-         </div>-->
-        </div>
-        <div class="noQueue" *ngIf="store.queue == 0">
-          <span class="textNoqueue">No hi ha cap persona davant teu. Aprofita!</span>
-      </div>
-      
-  </div>
+  <app-store *ngFor="let store of stores; let i = index" [store]="store">
+  </app-store>
 </div>
-<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > minTimeToShowConfirmation && store.queue > 0"  [store]="store"></app-store-info>
