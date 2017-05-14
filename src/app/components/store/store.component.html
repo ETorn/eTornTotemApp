@@ -1,11 +1,11 @@
-<div class="store-card mdl-card mdl-shadow--2dp" (click)="storeInfoOnClick($event)" ng-disabled="infoIsOpened()">
+<div class="store-card mdl-card mdl-shadow--2dp" (click)="storeInfoOnClick($event)">
   <div class="row">
     <a layout-align="center" class="printButton" >
       <span class="storeName">{{store.name}}</span>
     </a>
   </div>
   <div class="row-2">
-    <div [ngClass]="getStyleClasses" *ngIf="store.queue > 0" > <!--Ajustem  les columnes del div depenent de si hem de mostrar temps o no-->
+    <div [ngClass]="getStyleClasses()" *ngIf="store.queue > 0" > <!--Ajustem  les columnes del div depenent de si hem de mostrar temps o no-->
       <div class="queue">
         <span class="textQueue">Tens <span class="accent"> {{store.queue}} </span> persones davant teu</span>
         <!--<span class="mdl-chip">
@@ -13,7 +13,7 @@
         </span>-->
       </div>
     </div>
-    <div [ngClass]="getStyleClasses" *ngIf="store.aproxTime > 0 && store.queue > 0 ">
+    <div [ngClass]="getStyleClasses()" *ngIf="store.aproxTime > 0 && store.queue > 0 ">
       <div class="aproxTime">
         <span class="textAproxTime">Temps aproximat</span>
         <span class="mdl-chip">

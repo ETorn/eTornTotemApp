@@ -43,4 +43,10 @@ export class StoreInfoComponent implements OnInit {
     this.change.emit(this.showStoreInfo);
   }
 
+  public onContainerClicked(event: MouseEvent): void {
+    if ((<HTMLElement>event.target).classList.contains('backgroundStore')) {
+      this.toggleStoreInfo(event);
+    }
+  }
+
 }

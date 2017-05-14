@@ -20,7 +20,11 @@ export class StoreComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+    this.store.aproxTime = this.roundAproxTime(this.store.aproxTime);
+  }
+
+  roundAproxTime (time: number) {
+    return Math.round(time);
   }
 
   storeAproxTime (): boolean {
@@ -28,7 +32,7 @@ export class StoreComponent implements OnInit {
   }
 
   getStyleClasses () {
-    let haveAproxTime = this.storeAproxTime;
+    let haveAproxTime = this.storeAproxTime();
     
     this.styleClasses = {
       'col-sm-6': haveAproxTime,
