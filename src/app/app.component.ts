@@ -23,7 +23,9 @@ import { MQTTService } from './services/mqtt';
 export class AppComponent{
   config: Config;
 
-  maxTimeToShowConfirmation: Number;
+  styleClasses: {};
+
+  minTimeToShowConfirmation: Number;
 
   stores: any[];
  
@@ -32,7 +34,7 @@ export class AppComponent{
 
   showStoreInfo = false;
 
-  store: any[]; //storeId que es passa al component store-info al fer click en una parada
+  store: any; //storeId que es passa al component store-info al fer click en una parada
 
  // Stream of messages
   public messages: Observable<Packet>;
@@ -53,46 +55,14 @@ export class AppComponent{
     this.store = [];
     this.storeHaveAproxTime = false;
     this.stores = [];
-    this.setMaxTimeToShowConfirmation(5);
-  }
-
-  setMaxTimeToShowConfirmation (number: Number) {
-    this.maxTimeToShowConfirmation = number;
-  }
-
-  capitalizeFirstLetter(string) {
-      let newString = string.toLowerCase();
-      return newString.charAt(0).toUpperCase() + newString.slice(1);
-  }
-
-  storeMood (event) {
-    this.showStoreInfo = event;
-  }
-
-  storeInfoOnClick(event) {
-    if (this.storeHaveAproxTime) {
-      this.showStoreInfo = true;
-      let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
-      this.store = this.stores.filter(store => store.name === storeClickedName)[0];
-      console.log("storeToComponent", this.store);
-    }
-    else {
-      //Canviar torn per torn real
-      console.log("onClickPrint");
-      this.printService.printTicket("5").subscribe(
-        message => {
-          console.log("message", message);
-        }
-      )
-    }
-    //this.store[0].aproxTime = "3 minuts";
-    //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
-		//this.name = event;
-		console.log(event);
+    this.setMinTimeToShowConfirmation(0);
   }
 
   ngOnInit() {
-    console.log("App iniciada")
+    console.log("App iniciada");
+
+    //this.setStyleClasses();
+
     this.configService.getConfig().subscribe(
       config => {
         this.config = config;
@@ -118,12 +88,16 @@ export class AppComponent{
                           else
                             store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor*/
                             
-                          if (time > this.config.minAproxTime) //comment to test
-                            this.storeHaveAproxTime = true;
+                          store.aproxTime = time;
+
+                          if (time > this.config.minAproxTime) //uncomment to test printer
+                            store.storeHaveAproxTime = true;
+                          else
+                            store.storeHaveAproxTime = false;
 
                           //store.aproxTime = 10; uncoment to test
 
-                          //console.log("time",store.aproxTime);
+                          console.log("time",store.aproxTime);
 
                           this.stores.push(store);
                           this._mqService.configure(this.config);
@@ -141,9 +115,64 @@ export class AppComponent{
         )
       }
     );
-    //this.initConfig();
-      //setInterval(() => {this.initConfig();}, 1000);
   }
+
+  storeAproxTime (index: number): boolean {
+    return this.stores[index].storeHaveAproxTime;
+  }
+
+  getStyleClasses (index: number) {
+    let haveAproxTime = this.storeAproxTime(index);
+    
+    this.styleClasses = {
+      'col-sm-6': haveAproxTime,
+      'col-sm-12': !haveAproxTime
+    }
+    return this.styleClasses;
+  }
+
+  setMinTimeToShowConfirmation (number: Number) {
+    this.minTimeToShowConfirmation = number;
+  }
+
+  capitalizeFirstLetter(string) {
+      let newString = string.toLowerCase();
+      return newString.charAt(0).toUpperCase() + newString.slice(1);
+  }
+
+  storeMood (event) {
+    this.showStoreInfo = event;
+  }
+
+  storeInfoOnClick(event) {
+    console.log(event);
+    console.log("this", this);
+    let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
+    this.store = this.stores.filter(store => store.name === storeClickedName)[0];
+    console.log("storeToComponent", this.store);
+
+    if (this.store.storeHaveAproxTime) {// mostrem el component StoreInfo
+      this.showStoreInfo = true;
+      console.log("eee");
+    } 
+      
+    else {
+      //Canviar torn per torn real
+      console.log("onClickPrint");
+      this.printService.printTicket("5").subscribe(
+        message => {
+          console.log("message", message);
+        }
+      )
+    }
+    console.log("showStoreInfo: ", this.showStoreInfo)
+    //this.store[0].aproxTime = "3 minuts";
+    //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
+		//this.name = event;
+		
+  }
+
+  
 
   ngOnDestroy() {
     this._mqService.disconnect();
@@ -182,18 +211,22 @@ export class AppComponent{
     
     for(let i in this.stores) {
       if(storeIdTopic === this.stores[i]._id) {
-        console.log("storeTurn", this.stores[i].storeTurn);
-        console.log("usersTurn", this.stores[i].usersTurn);
-        console.log("queue", this.stores[i].queue);
-        console.log("aproxTime", this.stores[i].aproxTime);
+       
         if (messageType === "storeTurn")
           this.stores[i].storeTurn = message;
         else if (messageType === "usersTurn")
           this.stores[i].usersTurn = message;
         else if (messageType === "queue")
           this.stores[i].queue = message;
-        else if (messageType === "aproxTime")
+        else if (messageType === "aproxTime") {
           this.stores[i].aproxTime = message;
+
+           this.stores[i].storeHaveAproxTime = Number(message) > this.config.minAproxTime ? true : false;
+        }
+        console.log("storeTurn", this.stores[i].storeTurn);
+        console.log("usersTurn", this.stores[i].usersTurn);
+        console.log("queue", this.stores[i].queue);
+        console.log("aproxTime", this.stores[i].aproxTime);
       }
     }
   }

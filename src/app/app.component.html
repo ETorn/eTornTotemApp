@@ -9,7 +9,7 @@
       </a>
     </div>
         <div class="row-2">
-          <div [ngClass]="{'col-sm-4': storeHaveAproxTime, 'col-sm-6': !storeHaveAproxTime}" *ngIf="store.queue > 0" > <!--Ajustem  les columnes del div depenent de si hem de mostrar temps o no-->
+          <div [ngClass]="getStyleClasses(i)" *ngIf="store.queue > 0" > <!--Ajustem  les columnes del div depenent de si hem de mostrar temps o no-->
             <div class="queue">
               <span class="textQueue">Tens <span class="accent"> {{store.queue}} </span> persones davant teu</span>
               <!--<span class="mdl-chip">
@@ -17,7 +17,7 @@
               </span>-->
             </div>
           </div>
-          <div [ngClass]="{'col-sm-4': storeHaveAproxTime, 'col-sm-6': !storeHaveAproxTime}" *ngIf="store.aproxTime > 0 && store.queue > 0 ">
+          <div [ngClass]="getStyleClasses(i)" *ngIf="store.aproxTime > 0 && store.queue > 0 ">
             <div class="aproxTime">
               <span class="textAproxTime">Temps aproximat</span>
               <span class="mdl-chip">
@@ -35,4 +35,4 @@
       
   </div>
 </div>
-<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > maxTimeToShowConfirmation && store.queue > 0"  [store]="store"></app-store-info>
+<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > minTimeToShowConfirmation && store.queue > 0"  [store]="store"></app-store-info>

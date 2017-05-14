@@ -28,6 +28,7 @@ export class StoreInfoComponent implements OnInit {
   toggleStoreInfo(event) {
     this.showStoreInfo = false;
     this.change.emit(this.showStoreInfo);
+    
   }
 
   printTicket() {
