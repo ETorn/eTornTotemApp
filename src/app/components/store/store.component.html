@@ -1,4 +1,4 @@
-<div class="store-card mdl-card mdl-shadow--2dp" (click)="storeInfoOnClick($event)" ng-disabled="infoIsOpened()">
+<div class="store-card mdl-card mdl-shadow--2dp" (click)="storeInfo.show()">
   <div class="row">
     <a layout-align="center" class="printButton" >
       <span class="storeName">{{store.name}}</span>
@@ -29,4 +29,14 @@
     <span class="textNoqueue">No hi ha cap persona davant teu. Aprofita!</span>
   </div>    
 </div>
-<app-store-info (change)="storeMood($event)" *ngIf="showStoreInfo && store.aproxTime > minTimeToShowConfirmation && store.queue > 0"  [store]="store"></app-store-info>
+<app-store-info #storeInfo [store]="store" *ngIf="store.aproxTime > minTimeToShowConfirmation && store.queue > 0"></app-store-info>
+<!--<app-modal #modal1>
+    <div class="app-modal-body">
+      <p>Vol continuar demanant torn?</p>
+    </div>
+    <div class="app-modal-footer">
+      <button type="button" class="btn btn-primary" (click)="modal1.hide()">No</button>
+      <button type="button" class="btn btn-primary" (click)="modal2.show()">Si</button>
+    </div>
+</app-modal>
+-->

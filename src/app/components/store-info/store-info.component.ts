@@ -18,6 +18,9 @@ export class StoreInfoComponent implements OnInit {
 
   loaded: boolean;
 
+  public visible = false;
+  private visibleAnimate = false;
+
   constructor(private printService: PrintService) {this.loaded = false;}
 
   ngOnInit() {
@@ -41,6 +44,24 @@ export class StoreInfoComponent implements OnInit {
     )
     this.showStoreInfo = false;
     this.change.emit(this.showStoreInfo);
+  }
+
+   public show(): void {
+     console.log("ajwhdjkwad");
+     
+    this.visible = true;
+    setTimeout(() => this.visibleAnimate = true, 100);
+  }
+
+  public hide(): void {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+
+  public onContainerClicked(event: MouseEvent): void {
+    if ((<HTMLElement>event.target).classList.contains('modal')) {
+      this.hide();
+    }
   }
 
 }

@@ -20,7 +20,6 @@ export class StoreComponent implements OnInit {
    }
 
   ngOnInit() {
-    
   }
 
   storeAproxTime (): boolean {

@@ -1,4 +1,5 @@
-<div class="backgroundStore">
+<div class="backgroundStore"  [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}" (click)="onContainerClicked($event)"
+class="modal fade">
     <div class="store-card mdl-card mdl-shadow--2dp" [class.move-card]="loaded">
         <div class="container">            
             <div class="innerStoreInfo">
@@ -28,7 +29,7 @@
 
                 <div class="row-5">
                     <div class="col-sm-6">
-                        <button class="mdl-button mdl-js-button mdl-button--accent" (click)="toggleStoreInfo($event)"> No </button>
+                        <button class="mdl-button mdl-js-button mdl-button--accent" (click)="hide()"> No </button>
                     </div>
                     <div class="col-sm-6">
                         <button class="mdl-button mdl-js-button mdl-button--accent" (click)="printTicket()"> Si </button>
