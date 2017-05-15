@@ -20,11 +20,8 @@ export class StoreComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.store.aproxTime = this.roundAproxTime(this.store.aproxTime);
-  }
-
-  roundAproxTime (time: number) {
-    return Math.round(time);
+    console.log("roundedTime", this.store.aproxTime);
+    console.log("havetime", this.store.storeHaveAproxTime);
   }
 
   storeAproxTime (): boolean {

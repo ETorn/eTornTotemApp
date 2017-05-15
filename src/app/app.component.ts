@@ -87,14 +87,13 @@ export class AppComponent{
                           else
                             store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor*/
                             
-                          store.aproxTime = time;
+                          //store.aproxTime = this.roundAproxTime(time);
+                          store.aproxTime = 6;
 
-                          if (time > this.config.minAproxTime) //uncomment to test printer
+                          if (store.aproxTime > this.config.minAproxTime) //uncomment to test printer
                             store.storeHaveAproxTime = true;
                           else
                             store.storeHaveAproxTime = false;
-
-                          //store.aproxTime = 10; uncoment to test
 
                           console.log("time",store.aproxTime);
 
@@ -143,10 +142,12 @@ export class AppComponent{
     this.showStoreInfo = event;
   }
 
-  
-
   ngOnDestroy() {
     this._mqService.disconnect();
+  }
+
+  roundAproxTime (time: number) {
+    return Math.round(time);
   }
 
   /** Callback on_connect to queue */
@@ -190,9 +191,9 @@ export class AppComponent{
         else if (messageType === "queue")
           this.stores[i].queue = message;
         else if (messageType === "aproxTime") {
-          this.stores[i].aproxTime = message;
-
-           this.stores[i].storeHaveAproxTime = Number(message) > this.config.minAproxTime ? true : false;
+          this.stores[i].aproxTime = this.roundAproxTime(Number(message));
+          
+          this.stores[i].storeHaveAproxTime = Number(message) > this.config.minAproxTime ? true : false;
         }
         console.log("storeTurn", this.stores[i].storeTurn);
         console.log("usersTurn", this.stores[i].usersTurn);
