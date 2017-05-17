@@ -1,12 +1,17 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { PrintService } from '../../services/print/print.service';
+import { DataService } from '../../services/data/data.service';
+import { Config } from '../../interfaces/config.interface';
+
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
-
+  
   @Input()
   store: any;
 
@@ -44,6 +49,10 @@ export class StoreComponent implements OnInit {
 
   infoIsOpened () {
     return this.showStoreInfo;
+  }
+
+  roundAproxTime (time: number) {
+    return Math.round(time);
   }
 
   storeInfoOnClick(event) {

@@ -25,6 +25,8 @@ export class AppComponent{
 
   styleClasses: {};
 
+  mqttConnected: boolean;
+
   minTimeToShowConfirmation: Number;
 
   stores: any[];
@@ -51,6 +53,7 @@ export class AppComponent{
 
   constructor(private dataService: DataService, private configService: ConfigService, private totemService: TotemService,
   private superService: SuperService, private storeService: StoreService, private caesarService: CaesarService, private _mqService: MQTTService) {
+    this.mqttConnected = false;
     this.store = [];
     this.storeHaveAproxTime = false;
     this.stores = [];
@@ -87,8 +90,8 @@ export class AppComponent{
                           else
                             store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor*/
                             
-                          //store.aproxTime = this.roundAproxTime(time);
-                          store.aproxTime = 6;
+                          store.aproxTime = this.roundAproxTime(time);
+                          //store.aproxTime = 6;
 
                           if (store.aproxTime > this.config.minAproxTime) //uncomment to test printer
                             store.storeHaveAproxTime = true;
@@ -98,10 +101,13 @@ export class AppComponent{
                           console.log("time",store.aproxTime);
 
                           this.stores.push(store);
-                          this._mqService.configure(this.config);
-                          this._mqService.try_connect()
-                            .then(this.on_connect)
-                            .catch(this.on_error); 
+                          if (!this.mqttConnected) {
+                            this._mqService.configure(this.config);
+                            this._mqService.try_connect()
+                              .then(this.on_connect)
+                              .catch(this.on_error); 
+                            this.mqttConnected = true;
+                          }
                         }
                       )
                     }
@@ -193,7 +199,7 @@ export class AppComponent{
         else if (messageType === "aproxTime") {
           this.stores[i].aproxTime = this.roundAproxTime(Number(message));
           
-          this.stores[i].storeHaveAproxTime = Number(message) > this.config.minAproxTime ? true : false;
+          this.stores[i].storeHaveAproxTime = this.roundAproxTime(Number(message)) > this.config.minAproxTime ? true : false;
         }
         console.log("storeTurn", this.stores[i].storeTurn);
         console.log("usersTurn", this.stores[i].usersTurn);
