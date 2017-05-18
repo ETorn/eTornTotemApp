@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { PrintService } from '../../services/print/print.service';
+import { StoreService } from '../../services/store/store.service';
 import { DataService } from '../../services/data/data.service';
 import { Config } from '../../interfaces/config.interface';
 
@@ -19,7 +20,7 @@ export class StoreComponent implements OnInit {
   showStoreInfo = false;
   minTimeToShowConfirmation: Number;
 
-  constructor(private printService: PrintService) {
+  constructor(private printService: PrintService, private storeService: StoreService) {
     this.styleClasses = {};
     this.setMinTimeToShowConfirmation(0);
    }
@@ -72,9 +73,17 @@ export class StoreComponent implements OnInit {
       console.log("onClickPrint");
       this.printService.printTicket("5").subscribe(
         message => {
-          console.log("message", message);
+          console.log("print message", message);
         }
-      )
+      );
+
+      //peticio addUser al servidor
+      console.log("RequestTurn");
+      this.storeService.requestTurn(this.store._id).subscribe(
+        message => {
+          console.log("RequestTurn message: ", message);
+        }
+      );
     }
     console.log("showStoreInfo: ", this.showStoreInfo)
     //this.store[0].aproxTime = "3 minuts";

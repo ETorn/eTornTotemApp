@@ -8,13 +8,23 @@ import {Observable} from 'rxjs/Rx';
 export class StoreService {
   private config: Config;
 
-  constructor(private dataService: DataService, private _http: Http) {}
+  constructor(private dataService: DataService, private _http: Http) {
+    
+  }
 
   getStoresById(storesId: string) {
       this.config = this.dataService.getValue();
       console.log("StoresByIDService");
       console.log(storesId);
       const url = this.config.node.address + '/stores/' + storesId;
+      return this._http.get(url)
+            .map(res => res.json());
+  }
+
+  requestTurn(storeId: string) {
+      this.config = this.dataService.getValue();
+      console.log("RequestTurn Service");
+      const url = this.config.node.address + '/stores/' + storeId + '/users/' + this.config.totem._id;
       return this._http.get(url)
             .map(res => res.json());
   }

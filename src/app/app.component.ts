@@ -68,10 +68,12 @@ export class AppComponent{
     this.configService.getConfig().subscribe(
       config => {
         this.config = config;
-        this.dataService.setData(config);
-        this.totemService.getSuperId(config).subscribe( // Comprovar responses if (!null)¿?
-          response => {
-            this.superService.getSuperById(response.superId).subscribe(
+        this.totemService.getTotem(config).subscribe( // Comprovar responses if (!null)¿?
+          totem => {
+            this.config.totem = totem.totem;
+            console.log("totem", this.config.totem);
+            this.dataService.setData(this.config);
+            this.superService.getSuperById(this.config.totem.superId).subscribe(
               superMrkt => {
                 console.log("super", superMrkt);
                 this.storesID = superMrkt.stores;

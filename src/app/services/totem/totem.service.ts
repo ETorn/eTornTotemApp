@@ -9,13 +9,15 @@ export class TotemService {
 
   constructor(private _http: Http, private configService: ConfigService) { }
 
-   getSuperId(config: Config) {
-    console.log("getSuperId");
+   getTotem(config: Config) {
+    console.log("getTotem");
     console.log(config);
     const url = config.node.address + 
     '/totems/identifier/' + config.totem.identifier;
     return this._http.get(url)
           .map(res => res.json());
   }
+
+  
 
 }
