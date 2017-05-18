@@ -25,7 +25,7 @@ export class StoreService {
       this.config = this.dataService.getValue();
       console.log("RequestTurn Service");
       const url = this.config.node.address + '/stores/' + storeId + '/users/' + this.config.totem._id;
-      return this._http.get(url)
+      return this._http.put(url,null)
             .map(res => res.json());
   }
 }

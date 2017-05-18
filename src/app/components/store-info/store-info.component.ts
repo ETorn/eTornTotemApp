@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { PrintService } from '../../services/print/print.service';
+import { StoreService } from '../../services/store/store.service';
 @Component({
   selector: 'app-store-info',
   templateUrl: './store-info.component.html',
@@ -18,7 +19,7 @@ export class StoreInfoComponent implements OnInit {
 
   loaded: boolean;
 
-  constructor(private printService: PrintService) {this.loaded = false;}
+  constructor(private printService: PrintService, private storeService: StoreService) {this.loaded = false;}
 
   ngOnInit() {
     console.log(this.store);
@@ -41,6 +42,18 @@ export class StoreInfoComponent implements OnInit {
     )
     this.showStoreInfo = false;
     this.change.emit(this.showStoreInfo);
+  }
+
+  requestTurn() {
+    //peticio addUser al servidor
+      console.log("RequestTurn");
+      this.storeService.requestTurn(this.store._id).subscribe(
+        message => {
+          console.log("RequestTurn message: ", message);
+        }
+      );
+
+    this.printTicket();
   }
 
   public onContainerClicked(event: MouseEvent): void {
