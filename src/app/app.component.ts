@@ -178,8 +178,6 @@ export class AppComponent{
 
     // Store message in "historic messages" queue
     this.mq.push(message.toString() + '\n');
-
-    console.log("messages",this.messages);
     console.log("mqMessage",this.mq);
     //console.log("turn",this.mq[0]);
     console.log("message", message);
@@ -205,8 +203,8 @@ export class AppComponent{
         }
         console.log("storeTurn", this.stores[i].storeTurn);
         console.log("usersTurn", this.stores[i].usersTurn);
-        console.log("queue", this.stores[i].queue);
-        console.log("aproxTime", this.stores[i].aproxTime);
+        console.log("Store queue", this.stores[i].queue);
+        console.log("Store aproxTime", this.stores[i].aproxTime);
       }
     }
   }
