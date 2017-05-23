@@ -19,7 +19,7 @@
     overflow: hidden;
 }
 
-.store-card:after {
+/*.store-card:after {
     content: "";
     background: rgba(255,255,255,0.3);
     display: block;
@@ -42,7 +42,7 @@
     opacity: 1;
     transition: 0s;
 
-}
+}*/
 
 .hidden-container {
    opacity: 0.8;
