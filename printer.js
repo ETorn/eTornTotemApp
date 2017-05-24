@@ -11,6 +11,20 @@ var memoize = require("memoizeasync");
 var IMG_WIDTH = 384;
 var IMG_HEIGHT = 500;
 
+var serialPort = new SerialPort("/dev/ttyAMA0", {
+    baudrate: 19200
+  });
+var Printer = require("thermalprinter");
+
+module.exports.init = function init (cb) {
+  serialPort.on("open",function() {
+    printer = new Printer(serialPort/*, {maxPrintingDots: 100, heatingTime: 30, heatingInterval: 0}*/);
+    printer.on("ready", function() {
+      cb();
+    });
+  });
+}
+
 var loadFont = memoize(function(cb) {
   console.time("loadFont");
   Jimp.loadFont(Jimp.FONT_SANS_32_BLACK, function(err, font) {
@@ -242,28 +256,17 @@ var getImgBuffer = function getImgBuffer(img, cb) {
 var printImg = function printImg(imgBuffer, cb) {
   l("printing");
   console.time("print");
+  printer
+    .center()
+    .printImage(imgBuffer, Jimp.MIME_PNG)
+    .lineFeed(3)
+    .print(function() {
+      l("done printing");
 
-  var serialPort = new SerialPort("/dev/ttyAMA0", {
-    baudrate: 19200
-  });
-  var Printer = require("thermalprinter");
+      console.timeEnd("print");
 
-  serialPort.on("open",function() {
-    var printer = new Printer(serialPort/*, {maxPrintingDots: 100, heatingTime: 30, heatingInterval: 0}*/);
-    printer.on("ready", function() {
-      printer
-        .center()
-        .printImage(imgBuffer, Jimp.MIME_PNG)
-        .lineFeed(3)
-        .print(function() {
-          l("done printing");
-
-          console.timeEnd("print");
-
-          cb(null);
-        });
+      cb(null);
     });
-  });
 };
 
 var genBaseImage = memoize(function genBaseImage(cb) {
@@ -308,10 +311,10 @@ module.exports.printTicketForTurn = function printTicketForTurn(turn, cb) {
       },
       addDate,
       covertToMonochrome,
-      //rotateImg,
-      //getImgBuffer,
-      //printImg
-      function(img, cb2){img.write("test.png");cb2(null, img);}
+      rotateImg,
+      getImgBuffer,
+      printImg
+      //function(img, cb2){img.write("test.png");cb2(null, img);}
     ],
 
     function(err, result) {

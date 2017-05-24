@@ -58,5 +58,8 @@ app.use(cors());
 
 // START THE SERVER
 // =============================================================================
-app.listen(8082);
-console.log('Magic happens on port ' + 8082);
+printer.init(function () {
+  app.listen(8082);
+  console.log('Magic happens on port ' + 8082);
+});
+
