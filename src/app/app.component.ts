@@ -27,8 +27,6 @@ export class AppComponent{
 
   mqttConnected: boolean;
 
-  minTimeToShowConfirmation: Number;
-
   stores: any[];
  
   storesID: any[];
@@ -57,18 +55,15 @@ export class AppComponent{
     this.store = [];
     this.storeHaveAproxTime = false;
     this.stores = [];
-    this.setMinTimeToShowConfirmation(0);
   }
 
   ngOnInit() {
     console.log("App iniciada");
 
-    //this.setStyleClasses();
-
     this.configService.getConfig().subscribe(
       config => {
         this.config = config;
-        this.totemService.getTotem(config).subscribe( // Comprovar responses if (!null)¿?
+        this.totemService.getTotem(config).subscribe(
           totem => {
             this.config.totem = totem.totem;
             console.log("totem", this.config.totem);
@@ -83,19 +78,12 @@ export class AppComponent{
                   this.storeService.getStoresById(this.storesID[i]._id).subscribe(
                     store => {
                       console.log("store", store);
-                     // store.queue = 10; uncoment to test
                       this.caesarService.getStoreAverageTime(store._id).subscribe(
                         time => {
+                          //store.aproxTime = 3 // Per a fer demo
+                          store.aproxTime = this.roundAproxTime(time * store.queue);
 
-                          /*if (i == "1") 
-                            store.aproxTime = 3 // Per a fer demo
-                          else
-                            store.aproxTime = 6; // Hardcoded!! Canviar quan rebem el temps aproximat del servidor*/
-                            
-                          store.aproxTime = this.roundAproxTime(time);
-                          //store.aproxTime = 6;
-
-                          if (store.aproxTime > this.config.minAproxTime) //uncomment to test printer
+                          if (store.aproxTime > this.config.minAproxTime)
                             store.storeHaveAproxTime = true;
                           else
                             store.storeHaveAproxTime = false;
@@ -135,10 +123,6 @@ export class AppComponent{
       'col-sm-12': !haveAproxTime
     }
     return this.styleClasses;
-  }
-
-  setMinTimeToShowConfirmation (number: Number) {
-    this.minTimeToShowConfirmation = number;
   }
 
   capitalizeFirstLetter(string) {
@@ -190,21 +174,23 @@ export class AppComponent{
     for(let i in this.stores) {
       if(storeIdTopic === this.stores[i]._id) {
        
-        if (messageType === "storeTurn")
+        if (messageType === "storeTurn") {
           this.stores[i].storeTurn = message;
-        else if (messageType === "usersTurn")
+          console.log("storeTurn", this.stores[i].storeTurn);
+        }
+        else if (messageType === "usersTurn") {
           this.stores[i].usersTurn = message;
-        else if (messageType === "queue")
+          console.log("usersTurn", this.stores[i].usersTurn);
+        }
+        else if (messageType === "queue") {
           this.stores[i].queue = message;
+          console.log("Store queue", this.stores[i].queue);
+        }
         else if (messageType === "aproxTime") {
           this.stores[i].aproxTime = this.roundAproxTime(Number(message));
-          
           this.stores[i].storeHaveAproxTime = this.roundAproxTime(Number(message)) > this.config.minAproxTime ? true : false;
+          console.log("Store aproxTime", this.stores[i].aproxTime);
         }
-        console.log("storeTurn", this.stores[i].storeTurn);
-        console.log("usersTurn", this.stores[i].usersTurn);
-        console.log("Store queue", this.stores[i].queue);
-        console.log("Store aproxTime", this.stores[i].aproxTime);
       }
     }
   }

@@ -8,9 +8,6 @@
     <div [ngClass]="getStyleClasses()" *ngIf="store.queue > 0" > <!--Ajustem  les columnes del div depenent de si hem de mostrar temps o no-->
       <div class="queue">
         <span class="textQueue">Tens <span class="accent"> {{store.queue}} </span> persones davant teu</span>
-        <!--<span class="mdl-chip">
-          <span class="mdl-chip__text">{{store.storeTurn}}</span>
-        </span>-->
       </div>
     </div>
     <div [ngClass]="getStyleClasses()" *ngIf="store.aproxTime > 0 && store.queue > 0 ">
@@ -21,9 +18,6 @@
         </span>
       </div>
     </div>
-    <!--<div class="disponibleTurn">
-      <span class="textDisponibleTurn">Torn disponible: <span class="accentUsersTurn"> {{store.usersTurn}} </span> </span>
-    </div>-->
   </div>
   <div class="noQueue" *ngIf="store.queue == 0">
     <span class="textNoqueue">No hi ha cap persona davant teu. Aprofita!</span>

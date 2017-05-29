@@ -15,7 +15,7 @@ export class StoreService {
   getStoresById(storesId: string) {
       this.config = this.dataService.getValue();
       console.log("StoresByIDService");
-      console.log(storesId);
+      console.log("storesId", storesId);
       const url = this.config.node.address + '/stores/' + storesId;
       return this._http.get(url)
             .map(res => res.json());

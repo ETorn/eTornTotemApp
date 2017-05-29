@@ -13,7 +13,7 @@ export class PrintService {
   printTicket(turn: string) {
     this.config = this.dataService.getValue();
     console.log("PrintService");
-    console.log("Turn: ", turn);
+    console.log("TurnToPrint: ", turn);
     const url = this.config.angularNode.address + '/print/' + turn;
       return this._http.get(url)
             .map(res => res.json());

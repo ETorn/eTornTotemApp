@@ -20,14 +20,12 @@ export class StoreComponent implements OnInit {
   showStoreInfo = false;
   minTimeToShowConfirmation: Number;
 
-  constructor(private printService: PrintService, private storeService: StoreService) {
+  constructor(private printService: PrintService, private storeService: StoreService, private dataService: DataService) {
     this.styleClasses = {};
-    this.setMinTimeToShowConfirmation(0);
    }
 
   ngOnInit() {
-    console.log("roundedTime", this.store.aproxTime);
-    console.log("havetime", this.store.storeHaveAproxTime);
+    this.minTimeToShowConfirmation = this.dataService.getValue().minTimeToShowConfirmation;
   }
 
   storeAproxTime (): boolean {
@@ -57,19 +55,12 @@ export class StoreComponent implements OnInit {
   }
 
   storeInfoOnClick(event) {
-    console.log(event);
-    console.log("this", this);
-
-    /*let storeClickedName = this.capitalizeFirstLetter(event.target.innerText);
-    this.store = this.stores.filter(store => store.name === storeClickedName)[0];*/
-    console.log("storeToComponent", this.store);
 
     if (this.store.storeHaveAproxTime) {// mostrem el component StoreInfo
       this.showStoreInfo = true;
     } 
       
     else {
-      //Canviar torn per torn real
       console.log("onClickPrint");
       this.printService.printTicket(this.store.usersTurn).subscribe(
         message => {
@@ -85,15 +76,6 @@ export class StoreComponent implements OnInit {
         }
       );
     }
-    console.log("showStoreInfo: ", this.showStoreInfo)
-    //this.store[0].aproxTime = "3 minuts";
-    //rebre la ID de la store per fer el GET i omplir el component storeInfo amb els valors retornats
-		//this.name = event;
-		
-  }
-
-  setMinTimeToShowConfirmation (number: Number) {
-    this.minTimeToShowConfirmation = number;
   }
 
 }

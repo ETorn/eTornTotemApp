@@ -13,10 +13,9 @@ export class SuperService{
 
   getSuperById(superId: string) {
     console.log("SuperByidDD");
-    console.log(superId);
+    console.log("superId", superId);
     const url =  this.dataService.getValue().node.address +
     '/supers/' + superId;
-    console.log("url", url);
     return this._http.get(url)
           .map(res => res.json());
   }

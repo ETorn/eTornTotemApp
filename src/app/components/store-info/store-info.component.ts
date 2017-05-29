@@ -33,7 +33,6 @@ export class StoreInfoComponent implements OnInit {
   }
 
   printTicket() {
-    //Canviar torn per torn real
     console.log("onClickPrint");
     this.printService.printTicket(this.store.usersTurn).subscribe(
       message => {
@@ -46,7 +45,6 @@ export class StoreInfoComponent implements OnInit {
 
   requestTurn() {
     //peticio addUser al servidor
-      console.log("RequestTurn");
       this.storeService.requestTurn(this.store._id).subscribe(
         message => {
           console.log("RequestTurn message: ", message);

@@ -4,6 +4,7 @@ export interface Config {
     caesar: any;
     angularNode: any;
     minAproxTime: Number;
+    minTimeToShowConfirmation: Number;
     // MQTT queues
     publish: string[];
     subscribe: string[];

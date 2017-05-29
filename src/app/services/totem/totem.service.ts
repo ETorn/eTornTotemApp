@@ -11,7 +11,7 @@ export class TotemService {
 
    getTotem(config: Config) {
     console.log("getTotem");
-    console.log(config);
+    console.log("config", config);
     const url = config.node.address + 
     '/totems/identifier/' + config.totem.identifier;
     return this._http.get(url)
