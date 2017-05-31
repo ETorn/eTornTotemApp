@@ -3,14 +3,14 @@
         "identifier": "C003"
     },
     "node": {
-        "address": "http://192.168.1.128:8080",
-        "mqttAddress": "ws://192.168.1.128:1884"
+        "address": "http://192.168.137.1:8080",
+        "mqttAddress": "ws://192.168.137.1:1884"
     },
     "angularNode": {
         "address": "http://localhost:8082"
     },
     "caesar": {
-        "address": "http://192.168.1.128:8081"
+        "address": "http://192.168.137.1:8081"
     },
     "minAproxTime": 0,
     "minTimeToShowConfirmation": 0,
